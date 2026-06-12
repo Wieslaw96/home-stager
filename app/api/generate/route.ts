@@ -44,6 +44,28 @@ function extractUrl(output: unknown): string {
   return typeof item === "string" ? item : (item as { url: () => string }).url();
 }
 
+async function runWithRetry(
+  replicate: Replicate,
+  input: Parameters<Replicate["run"]>[1],
+  retries = 3
+): Promise<unknown> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await replicate.run(MODEL, input);
+    } catch (err: unknown) {
+      const status = (err as { status?: number }).status;
+      const retryAfter = (err as { response?: { headers?: { get?: (h: string) => string | null } } })
+        ?.response?.headers?.get?.("retry-after");
+      if (status === 429 && i < retries - 1) {
+        const wait = retryAfter ? parseInt(retryAfter) * 1000 : 10000;
+        await new Promise((r) => setTimeout(r, wait));
+        continue;
+      }
+      throw err;
+    }
+  }
+}
+
 export async function POST(req: NextRequest) {
   const { imageBase64, roomType, style } = await req.json();
 
@@ -60,7 +82,7 @@ export async function POST(req: NextRequest) {
 
   try {
     // Step 1: clear the room — remove all furniture, keep walls/floor/windows
-    const emptyOutput = await replicate.run(MODEL, {
+    const emptyOutput = await runWithRetry(replicate, {
       input: {
         image: imageBase64,
         prompt: "empty unfurnished room, bare walls, clean floor, no furniture, no objects, no decorations, vacant room ready for staging",
@@ -73,7 +95,7 @@ export async function POST(req: NextRequest) {
     const emptyUrl = extractUrl(emptyOutput);
 
     // Step 2: stage the empty room with the target style and room type
-    const stagedOutput = await replicate.run(MODEL, {
+    const stagedOutput = await runWithRetry(replicate, {
       input: {
         image: emptyUrl,
         prompt: buildPrompt(roomType, style),
