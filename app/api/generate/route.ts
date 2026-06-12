@@ -1,6 +1,8 @@
 import Replicate from "replicate";
 import { NextRequest } from "next/server";
 
+export const maxDuration = 300;
+
 const ROOM_LABELS: Record<string, string> = {
   living_room: "living room",
   bedroom: "bedroom",
@@ -54,10 +56,10 @@ async function runWithRetry(
       return await replicate.run(MODEL, input);
     } catch (err: unknown) {
       const status = (err as { status?: number }).status;
-      const retryAfter = (err as { response?: { headers?: { get?: (h: string) => string | null } } })
-        ?.response?.headers?.get?.("retry-after");
       if (status === 429 && i < retries - 1) {
-        const wait = retryAfter ? parseInt(retryAfter) * 1000 : 10000;
+        // parse retry_after from error message body, e.g. "retry_after\":5"
+        const match = (err instanceof Error ? err.message : "").match(/"retry_after"\s*:\s*(\d+)/);
+        const wait = match ? parseInt(match[1]) * 1000 + 1000 : 15000;
         await new Promise((r) => setTimeout(r, wait));
         continue;
       }
