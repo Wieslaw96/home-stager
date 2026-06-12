@@ -1,5 +1,7 @@
 import Replicate from "replicate";
 import { NextRequest } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+import { PLANS } from "@/lib/stripe";
 
 export const maxDuration = 300;
 
@@ -58,7 +60,6 @@ async function runWithRetry(
       const status = (err as { status?: number }).status;
       if (status === 429 && i < retries - 1) {
         const match = (err instanceof Error ? err.message : "").match(/"retry_after"\s*:\s*(\d+)/);
-        // wait at least 20s to clear the per-minute bucket
         const wait = Math.max(match ? parseInt(match[1]) * 1000 + 2000 : 20000, 20000);
         await new Promise((r) => setTimeout(r, wait));
         continue;
@@ -68,11 +69,57 @@ async function runWithRetry(
   }
 }
 
+function yearMonth(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+}
+
 export async function POST(req: NextRequest) {
   const { imageBase64, roomType, style } = await req.json();
 
   if (!imageBase64 || !roomType || !style) {
     return Response.json({ error: "Brakujące parametry." }, { status: 400 });
+  }
+
+  // Auth check
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return Response.json({ error: "Wymagane logowanie." }, { status: 401 });
+  }
+
+  // Subscription check
+  const { data: sub } = await supabase
+    .from("subscriptions")
+    .select("plan, status")
+    .eq("user_id", user.id)
+    .eq("status", "active")
+    .maybeSingle();
+
+  if (!sub) {
+    return Response.json({ error: "Brak aktywnej subskrypcji.", code: "no_subscription" }, { status: 403 });
+  }
+
+  // Usage limit check
+  const planConfig = PLANS[sub.plan as keyof typeof PLANS];
+  const limit = planConfig?.generations ?? 0;
+
+  if (limit !== Infinity) {
+    const ym = yearMonth();
+    const { data: usage } = await supabase
+      .from("usage")
+      .select("count")
+      .eq("user_id", user.id)
+      .eq("year_month", ym)
+      .maybeSingle();
+
+    const count = usage?.count ?? 0;
+    if (count >= limit) {
+      return Response.json(
+        { error: "Wyczerpano limit generacji w tym miesiącu.", code: "limit_reached", limit, used: count },
+        { status: 403 }
+      );
+    }
   }
 
   const token = process.env.REPLICATE_API_TOKEN;
@@ -83,7 +130,7 @@ export async function POST(req: NextRequest) {
   const replicate = new Replicate({ auth: token });
 
   try {
-    // Step 1: clear the room — remove all furniture, keep walls/floor/windows
+    // Step 1: clear the room
     const emptyOutput = await runWithRetry(replicate, {
       input: {
         image: imageBase64,
@@ -96,7 +143,7 @@ export async function POST(req: NextRequest) {
     });
     const emptyUrl = extractUrl(emptyOutput);
 
-    // Step 2: stage the empty room with the target style and room type
+    // Step 2: stage the empty room
     const stagedOutput = await runWithRetry(replicate, {
       input: {
         image: emptyUrl,
@@ -108,6 +155,14 @@ export async function POST(req: NextRequest) {
       },
     });
     const stagedUrl = extractUrl(stagedOutput);
+
+    // Increment usage counter
+    const ym = yearMonth();
+    await supabase.from("usage").upsert(
+      { user_id: user.id, year_month: ym, count: 1 },
+      { onConflict: "user_id,year_month", ignoreDuplicates: false }
+    );
+    await supabase.rpc("increment_usage", { p_user_id: user.id, p_year_month: ym });
 
     return Response.json({ imageUrl: stagedUrl });
   } catch (err: unknown) {

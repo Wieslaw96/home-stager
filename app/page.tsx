@@ -1,6 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/client";
+
+type PlanKey = "starter" | "growth" | "pro";
+const PLAN_LABELS: Record<PlanKey, string> = { starter: "Starter", growth: "Growth", pro: "Pro" };
+const PLAN_LIMITS: Record<PlanKey, number | null> = { starter: 20, growth: 60, pro: null };
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -338,6 +345,7 @@ function HistoryPanel({
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function Page() {
+  const router = useRouter();
   const [tab, setTab] = useState<Tab>("staging");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageBase64, setImageBase64] = useState<string | null>(null);
@@ -346,10 +354,35 @@ export default function Page() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
+
+  // User & subscription state
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userPlan, setUserPlan] = useState<PlanKey | null>(null);
+  const [usageCount, setUsageCount] = useState<number>(0);
 
   useEffect(() => {
     setHistory(loadHistory());
+
+    const supabase = createClient();
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) return;
+      setUserEmail(user.email ?? null);
+
+      const ym = (() => {
+        const d = new Date();
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+      })();
+
+      const [{ data: sub }, { data: usage }] = await Promise.all([
+        supabase.from("subscriptions").select("plan").eq("user_id", user.id).eq("status", "active").maybeSingle(),
+        supabase.from("usage").select("count").eq("user_id", user.id).eq("year_month", ym).maybeSingle(),
+      ]);
+
+      setUserPlan((sub?.plan as PlanKey) ?? null);
+      setUsageCount(usage?.count ?? 0);
+    });
   }, []);
 
   const handleFile = useCallback(async (file: File) => {
@@ -373,8 +406,17 @@ export default function Page() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Nieznany błąd");
+      if (!res.ok) {
+        setErrorCode(data.code ?? null);
+        if (data.code === "no_subscription") {
+          router.push("/pricing");
+          return;
+        }
+        throw new Error(data.error ?? "Nieznany błąd");
+      }
 
+      setErrorCode(null);
+      setUsageCount((c) => c + 1);
       setResult(data.imageUrl);
 
       // Zapisz do historii
@@ -397,11 +439,18 @@ export default function Page() {
     }
   };
 
+  const handleLogout = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/login");
+  };
+
   const reset = () => {
     setResult(null);
     setImagePreview(null);
     setImageBase64(null);
     setError(null);
+    setErrorCode(null);
   };
 
   const deleteEntry = (id: string) => {
@@ -428,17 +477,26 @@ export default function Page() {
             <h1 className="font-bold text-slate-900 leading-none">RoomStager</h1>
             <p className="text-xs text-slate-500">AI Virtual Staging</p>
           </div>
-          {history.length > 0 && tab === "staging" && (
-            <button
-              onClick={() => setTab("history")}
-              className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-medium hover:bg-slate-200 transition-colors"
-            >
-              Historia
-              <span className="bg-slate-900 text-white rounded-full px-1.5 py-0.5 text-[10px] leading-none">
-                {history.length}
-              </span>
-            </button>
-          )}
+          <div className="ml-auto flex items-center gap-2">
+            {userPlan && (
+              <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500">
+                <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded-full">
+                  {PLAN_LABELS[userPlan]}
+                </span>
+                {PLAN_LIMITS[userPlan] !== null && (
+                  <span>{usageCount}/{PLAN_LIMITS[userPlan]} gen.</span>
+                )}
+              </div>
+            )}
+            {userEmail && (
+              <button
+                onClick={handleLogout}
+                className="text-xs text-slate-400 hover:text-slate-600 transition-colors px-2 py-1 rounded-lg hover:bg-slate-100"
+              >
+                Wyloguj
+              </button>
+            )}
+          </div>
         </div>
         {/* Tab bar */}
         <div className="flex border-t border-slate-100">
@@ -523,8 +581,13 @@ export default function Page() {
 
               {/* Error */}
               {error && (
-                <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
-                  {error}
+                <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex flex-col gap-2">
+                  <p>{error}</p>
+                  {errorCode === "limit_reached" && (
+                    <Link href="/pricing" className="text-blue-600 font-semibold hover:underline text-xs">
+                      Kup wyższy plan →
+                    </Link>
+                  )}
                 </div>
               )}
 
