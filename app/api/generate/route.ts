@@ -49,7 +49,7 @@ function extractUrl(output: unknown): string {
 async function runWithRetry(
   replicate: Replicate,
   input: Parameters<Replicate["run"]>[1],
-  retries = 3
+  retries = 6
 ): Promise<unknown> {
   for (let i = 0; i < retries; i++) {
     try {
@@ -57,9 +57,9 @@ async function runWithRetry(
     } catch (err: unknown) {
       const status = (err as { status?: number }).status;
       if (status === 429 && i < retries - 1) {
-        // parse retry_after from error message body, e.g. "retry_after\":5"
         const match = (err instanceof Error ? err.message : "").match(/"retry_after"\s*:\s*(\d+)/);
-        const wait = match ? parseInt(match[1]) * 1000 + 1000 : 15000;
+        // wait at least 20s to clear the per-minute bucket
+        const wait = Math.max(match ? parseInt(match[1]) * 1000 + 2000 : 20000, 20000);
         await new Promise((r) => setTimeout(r, wait));
         continue;
       }
