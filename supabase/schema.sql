@@ -42,9 +42,11 @@ $$ language plpgsql security definer;
 create or replace function handle_new_user()
 returns trigger as $$
 begin
-  insert into profiles (id, email)
+  insert into public.profiles (id, email)
   values (new.id, new.email)
   on conflict (id) do nothing;
+  return new;
+exception when others then
   return new;
 end;
 $$ language plpgsql security definer;
