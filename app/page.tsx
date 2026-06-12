@@ -351,6 +351,7 @@ export default function Page() {
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [roomType, setRoomType] = useState<RoomType>("living_room");
   const [style, setStyle] = useState<Style>("modern");
+  const [isEmpty, setIsEmpty] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -402,7 +403,7 @@ export default function Page() {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageBase64, roomType, style }),
+        body: JSON.stringify({ imageBase64, roomType, style, isEmpty }),
       });
 
       const data = await res.json();
@@ -527,6 +528,18 @@ export default function Page() {
             <section className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-slate-700">Zdjęcie pomieszczenia</label>
               <UploadZone preview={imagePreview} onFile={handleFile} />
+              <label className="flex items-center gap-2.5 mt-1 cursor-pointer select-none w-fit">
+                <div
+                  onClick={() => setIsEmpty(v => !v)}
+                  className={`relative w-10 h-6 rounded-full transition-colors ${isEmpty ? "bg-blue-600" : "bg-slate-200"}`}
+                >
+                  <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all ${isEmpty ? "left-5" : "left-1"}`} />
+                </div>
+                <span className="text-sm text-slate-600">
+                  Pomieszczenie jest już puste
+                  <span className="ml-1.5 text-slate-400 text-xs">{isEmpty ? "— pominę opróżnianie (~2× szybciej)" : "— najpierw usunę meble"}</span>
+                </span>
+              </label>
             </section>
 
             {/* Prawa kolumna — opcje + generuj */}

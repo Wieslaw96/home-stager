@@ -75,7 +75,7 @@ function yearMonth(): string {
 }
 
 export async function POST(req: NextRequest) {
-  const { imageBase64, roomType, style } = await req.json();
+  const { imageBase64, roomType, style, isEmpty } = await req.json();
 
   if (!imageBase64 || !roomType || !style) {
     return Response.json({ error: "Brakujące parametry." }, { status: 400 });
@@ -130,23 +130,26 @@ export async function POST(req: NextRequest) {
   const replicate = new Replicate({ auth: token });
 
   try {
-    // Step 1: clear the room
-    const emptyOutput = await runWithRetry(replicate, {
-      input: {
-        image: imageBase64,
-        prompt: "empty unfurnished room, bare walls, clean floor, no furniture, no objects, no decorations, vacant room ready for staging",
-        negative_prompt: "furniture, sofa, couch, bed, table, chairs, lamp, rug, curtains, plants, decorations, clutter, people",
-        num_inference_steps: 50,
-        guidance_scale: 10,
-        prompt_strength: 0.9,
-      },
-    });
-    const emptyUrl = extractUrl(emptyOutput);
+    // Step 1: clear the room (skip if user indicated it's already empty)
+    let stagingImage: string = imageBase64;
+    if (!isEmpty) {
+      const emptyOutput = await runWithRetry(replicate, {
+        input: {
+          image: imageBase64,
+          prompt: "empty unfurnished room, bare walls, clean floor, no furniture, no objects, no decorations, vacant room ready for staging",
+          negative_prompt: "furniture, sofa, couch, bed, table, chairs, lamp, rug, curtains, plants, decorations, clutter, people",
+          num_inference_steps: 50,
+          guidance_scale: 10,
+          prompt_strength: 0.9,
+        },
+      });
+      stagingImage = extractUrl(emptyOutput);
+    }
 
     // Step 2: stage the empty room
     const stagedOutput = await runWithRetry(replicate, {
       input: {
-        image: emptyUrl,
+        image: stagingImage,
         prompt: buildPrompt(roomType, style),
         negative_prompt: NEGATIVE_PROMPT,
         num_inference_steps: 50,
