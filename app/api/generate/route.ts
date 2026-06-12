@@ -53,20 +53,18 @@ export async function POST(req: NextRequest) {
   const prompt = buildPrompt(roomType, style);
 
   try {
-    // flux-dev img2img — sprawdzone w produkcji, zachowuje geometrię pokoju
-    const output = await replicate.run("black-forest-labs/flux-dev", {
+    // adirik/interior-design — uses segmentation + MLSD ControlNet, preserves walls/doors/windows
+    const output = await replicate.run("adirik/interior-design:76604baddc85b1b4616e1c6475eca080da339c8875bd4996705440484a6eac38", {
       input: {
         image: imageBase64,
         prompt,
-        prompt_strength: 0.75,
-        num_inference_steps: 35,
-        guidance: 5,
-        output_format: "jpg",
-        output_quality: 90,
+        negative_prompt: NEGATIVE_PROMPT,
+        num_inference_steps: 50,
+        guidance_scale: 7,
+        prompt_strength: 0.6,
       },
     });
 
-    // SDK v1.x zwraca FileOutput — wyciągamy URL
     const item = Array.isArray(output) ? output[0] : output;
     const url = typeof item === "string" ? item : (item as { url: () => string }).url();
     return Response.json({ imageUrl: url });
