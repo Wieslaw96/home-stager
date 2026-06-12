@@ -191,7 +191,8 @@ function ResultPanel({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex gap-2 p-1 bg-slate-100 rounded-xl">
+      {/* Mobile: zakładki przed/po — Desktop: side-by-side */}
+      <div className="md:hidden flex gap-2 p-1 bg-slate-100 rounded-xl">
         {(["after", "before"] as const).map((t) => (
           <button
             key={t}
@@ -204,13 +205,32 @@ function ResultPanel({
         ))}
       </div>
 
-      <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+      {/* Mobile: jedno zdjęcie */}
+      <div className="md:hidden relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={tab === "after" ? resultSrc : originalSrc}
           alt={tab === "after" ? "Wygenerowane wnętrze" : "Oryginalne zdjęcie"}
           className="w-full h-full object-cover"
         />
+      </div>
+
+      {/* Desktop: oba zdjęcia obok siebie */}
+      <div className="hidden md:grid md:grid-cols-2 md:gap-4">
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">📷 Przed</p>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={originalSrc} alt="Oryginalne zdjęcie" className="w-full h-full object-cover" />
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">✨ Po</p>
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={resultSrc} alt="Wygenerowane wnętrze" className="w-full h-full object-cover" />
+          </div>
+        </div>
       </div>
 
       <div className="flex gap-2">
@@ -259,6 +279,7 @@ function HistoryPanel({
   return (
     <div className="flex flex-col gap-3">
       <p className="text-xs text-slate-400 text-right">{entries.length} / {MAX_HISTORY} wizualizacji</p>
+      <div className="md:grid md:grid-cols-2 md:gap-3 flex flex-col gap-3">
       {entries.map((entry) => (
         <div key={entry.id} className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
           <div className="flex gap-3 p-3">
@@ -309,6 +330,7 @@ function HistoryPanel({
           </div>
         </div>
       ))}
+      </div>
     </div>
   );
 }
@@ -436,101 +458,105 @@ export default function Page() {
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 py-6 flex flex-col gap-6">
+      <main className="max-w-5xl mx-auto px-4 py-6">
         {tab === "history" ? (
           <HistoryPanel entries={history} onDelete={deleteEntry} onReuse={reuseEntry} />
         ) : result ? (
           <ResultPanel original={imagePreview!} result={result} onReset={reset} />
         ) : (
-          <>
-            {/* Upload */}
+          <div className="md:grid md:grid-cols-2 md:gap-8 flex flex-col gap-6">
+            {/* Lewa kolumna — upload */}
             <section className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-slate-700">Zdjęcie pomieszczenia</label>
               <UploadZone preview={imagePreview} onFile={handleFile} />
             </section>
 
-            {/* Room type */}
-            <section className="flex flex-col gap-3">
-              <label className="text-sm font-semibold text-slate-700">Typ pomieszczenia</label>
-              <div className="grid grid-cols-3 gap-2">
-                {ROOMS.map((r) => (
-                  <button
-                    key={r.id}
-                    onClick={() => setRoomType(r.id)}
-                    className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all active:scale-95
-                      ${roomType === r.id
-                        ? "border-slate-900 bg-slate-900 text-white"
-                        : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
-                      }`}
-                  >
-                    <span className="text-2xl">{r.icon}</span>
-                    <span className="text-xs font-medium leading-tight text-center">{r.label}</span>
-                  </button>
-                ))}
-              </div>
-            </section>
+            {/* Prawa kolumna — opcje + generuj */}
+            <div className="flex flex-col gap-6">
+              {/* Room type */}
+              <section className="flex flex-col gap-3">
+                <label className="text-sm font-semibold text-slate-700">Typ pomieszczenia</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {ROOMS.map((r) => (
+                    <button
+                      key={r.id}
+                      onClick={() => setRoomType(r.id)}
+                      className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all active:scale-95
+                        ${roomType === r.id
+                          ? "border-slate-900 bg-slate-900 text-white"
+                          : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                        }`}
+                    >
+                      <span className="text-2xl">{r.icon}</span>
+                      <span className="text-xs font-medium leading-tight text-center">{r.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
 
-            {/* Style */}
-            <section className="flex flex-col gap-3">
-              <label className="text-sm font-semibold text-slate-700">Styl wnętrza</label>
-              <div className="grid grid-cols-2 gap-2">
-                {STYLES.map((s) => (
-                  <button
-                    key={s.id}
-                    onClick={() => setStyle(s.id)}
-                    className={`flex items-center gap-3 p-3 rounded-xl border-2 text-left transition-all active:scale-95
-                      ${style === s.id
-                        ? "border-slate-900 bg-slate-900 text-white"
-                        : "border-slate-200 bg-white hover:border-slate-300"
-                      }`}
-                  >
-                    <div className="flex flex-col min-w-0">
-                      <span className={`text-sm font-semibold ${style === s.id ? "text-white" : "text-slate-800"}`}>
-                        {s.label}
-                      </span>
-                      <span className={`text-xs truncate ${style === s.id ? "text-slate-300" : "text-slate-500"}`}>
-                        {s.desc}
-                      </span>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </section>
+              {/* Style */}
+              <section className="flex flex-col gap-3">
+                <label className="text-sm font-semibold text-slate-700">Styl wnętrza</label>
+                <div className="grid grid-cols-2 gap-2">
+                  {STYLES.map((s) => (
+                    <button
+                      key={s.id}
+                      onClick={() => setStyle(s.id)}
+                      className={`flex items-center gap-3 p-3 rounded-xl border-2 text-left transition-all active:scale-95
+                        ${style === s.id
+                          ? "border-slate-900 bg-slate-900 text-white"
+                          : "border-slate-200 bg-white hover:border-slate-300"
+                        }`}
+                    >
+                      <div className="flex flex-col min-w-0">
+                        <span className={`text-sm font-semibold ${style === s.id ? "text-white" : "text-slate-800"}`}>
+                          {s.label}
+                        </span>
+                        <span className={`text-xs truncate ${style === s.id ? "text-slate-300" : "text-slate-500"}`}>
+                          {s.desc}
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
 
-            {/* Error */}
-            {error && (
-              <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
-                {error}
-              </div>
-            )}
-
-            {/* Generate */}
-            <button
-              onClick={handleGenerate}
-              disabled={!imageBase64 || isGenerating}
-              className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]
-                ${imageBase64 && !isGenerating
-                  ? "bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20"
-                  : "bg-slate-200 text-slate-400 cursor-not-allowed"
-                }`}
-            >
-              {isGenerating ? (
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-                  </svg>
-                  Generowanie… (~30 sekund)
-                </span>
-              ) : (
-                "✨ Generuj wizualizację"
+              {/* Error */}
+              {error && (
+                <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm">
+                  {error}
+                </div>
               )}
-            </button>
 
-            {!imageBase64 && (
-              <p className="text-center text-sm text-slate-400">Najpierw dodaj zdjęcie pomieszczenia</p>
-            )}
-          </>
+              {/* Generate */}
+              <div className="mt-auto flex flex-col gap-2">
+                <button
+                  onClick={handleGenerate}
+                  disabled={!imageBase64 || isGenerating}
+                  className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]
+                    ${imageBase64 && !isGenerating
+                      ? "bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20"
+                      : "bg-slate-200 text-slate-400 cursor-not-allowed"
+                    }`}
+                >
+                  {isGenerating ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                      </svg>
+                      Generowanie… (~30 sekund)
+                    </span>
+                  ) : (
+                    "✨ Generuj wizualizację"
+                  )}
+                </button>
+                {!imageBase64 && (
+                  <p className="text-center text-sm text-slate-400">Najpierw dodaj zdjęcie pomieszczenia</p>
+                )}
+              </div>
+            </div>
+          </div>
         )}
       </main>
     </div>
