@@ -31,10 +31,17 @@ const QUALITY_SUFFIX =
 const NEGATIVE_PROMPT =
   "low quality, blurry, deformed, watermark, text, logo, cartoon, anime, unrealistic, out of frame, bad proportions, ugly furniture, overexposed";
 
+const MODEL = "adirik/interior-design:76604baddc85b1b4616e1c6475eca080da339c8875bd4996705440484a6eac38";
+
 function buildPrompt(roomType: string, style: string): string {
   const room = ROOM_LABELS[roomType] ?? "room";
   const styleDesc = STYLE_PROMPTS[style] ?? STYLE_PROMPTS.modern;
   return `A beautifully staged ${room}, ${styleDesc}, ${QUALITY_SUFFIX}`;
+}
+
+function extractUrl(output: unknown): string {
+  const item = Array.isArray(output) ? output[0] : output;
+  return typeof item === "string" ? item : (item as { url: () => string }).url();
 }
 
 export async function POST(req: NextRequest) {
@@ -50,24 +57,35 @@ export async function POST(req: NextRequest) {
   }
 
   const replicate = new Replicate({ auth: token });
-  const prompt = buildPrompt(roomType, style);
 
   try {
-    // adirik/interior-design — uses segmentation + MLSD ControlNet, preserves walls/doors/windows
-    const output = await replicate.run("adirik/interior-design:76604baddc85b1b4616e1c6475eca080da339c8875bd4996705440484a6eac38", {
+    // Step 1: clear the room — remove all furniture, keep walls/floor/windows
+    const emptyOutput = await replicate.run(MODEL, {
       input: {
         image: imageBase64,
-        prompt,
+        prompt: "empty unfurnished room, bare walls, clean floor, no furniture, no objects, no decorations, vacant room ready for staging",
+        negative_prompt: "furniture, sofa, couch, bed, table, chairs, lamp, rug, curtains, plants, decorations, clutter, people",
+        num_inference_steps: 50,
+        guidance_scale: 10,
+        prompt_strength: 0.9,
+      },
+    });
+    const emptyUrl = extractUrl(emptyOutput);
+
+    // Step 2: stage the empty room with the target style and room type
+    const stagedOutput = await replicate.run(MODEL, {
+      input: {
+        image: emptyUrl,
+        prompt: buildPrompt(roomType, style),
         negative_prompt: NEGATIVE_PROMPT,
         num_inference_steps: 50,
         guidance_scale: 7,
-        prompt_strength: 0.6,
+        prompt_strength: 0.85,
       },
     });
+    const stagedUrl = extractUrl(stagedOutput);
 
-    const item = Array.isArray(output) ? output[0] : output;
-    const url = typeof item === "string" ? item : (item as { url: () => string }).url();
-    return Response.json({ imageUrl: url });
+    return Response.json({ imageUrl: stagedUrl });
   } catch (err: unknown) {
     const status = (err as { status?: number }).status;
     if (status === 401) return Response.json({ error: "Nieprawidłowy token Replicate." }, { status: 401 });
