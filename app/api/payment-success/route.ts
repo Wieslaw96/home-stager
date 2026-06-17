@@ -51,14 +51,17 @@ export async function GET(req: NextRequest) {
         email: user.email ?? "",
       }, { onConflict: "id", ignoreDuplicates: true });
 
+      const periodEndTs: number =
+        (sub as unknown as { current_period_end?: number }).current_period_end
+        ?? sub.items.data[0]?.current_period_end
+        ?? 0;
+
       const { error } = await admin.from("subscriptions").upsert({
         id: subId,
         user_id: user.id,
         plan: planKey,
         status: sub.status,
-        current_period_end: new Date(
-          (sub as unknown as { current_period_end: number }).current_period_end * 1000
-        ).toISOString(),
+        current_period_end: periodEndTs ? new Date(periodEndTs * 1000).toISOString() : null,
         cancel_at_period_end: sub.cancel_at_period_end,
         updated_at: new Date().toISOString(),
       });

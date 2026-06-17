@@ -3,6 +3,14 @@ import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
 
+function getPeriodEnd(sub: Stripe.Subscription): string | null {
+  const ts: number =
+    (sub as unknown as { current_period_end?: number }).current_period_end
+    ?? sub.items.data[0]?.current_period_end
+    ?? 0;
+  return ts ? new Date(ts * 1000).toISOString() : null;
+}
+
 function getSupabaseAdmin() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -34,7 +42,7 @@ export async function POST(req: NextRequest) {
             user_id: session.metadata.user_id,
             plan: planKey,
             status: sub.status,
-            current_period_end: new Date((sub as unknown as { current_period_end: number }).current_period_end * 1000).toISOString(),
+            current_period_end: getPeriodEnd(sub),
             cancel_at_period_end: sub.cancel_at_period_end,
             updated_at: new Date().toISOString(),
           });
@@ -50,7 +58,7 @@ export async function POST(req: NextRequest) {
         await getSupabaseAdmin().from("subscriptions").update({
           plan: planKey,
           status: sub.status,
-          current_period_end: new Date((sub as unknown as { current_period_end: number }).current_period_end * 1000).toISOString(),
+          current_period_end: getPeriodEnd(sub),
           cancel_at_period_end: sub.cancel_at_period_end,
           updated_at: new Date().toISOString(),
         }).eq("id", sub.id);
