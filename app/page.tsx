@@ -464,7 +464,8 @@ export default function Page() {
   const [cabinetColor, setCabinetColor] = useState("#FFFFFF");
   const [designPrompt, setDesignPrompt] = useState("");
   const [isListening, setIsListening] = useState(false);
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognitionRef = useRef<any>(null);
   const [skyType, setSkyType] = useState("day");
   const [scaleFactor, setScaleFactor] = useState(2);
   const [renderType, setRenderType] = useState("perspective");
@@ -502,7 +503,7 @@ export default function Page() {
 
   const toggleListening = useCallback(() => {
     const SR = (typeof window !== "undefined")
-      ? (window.SpeechRecognition ?? (window as unknown as { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition)
+      ? ((window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition)
       : undefined;
 
     if (!SR) { alert("Twoja przeglądarka nie obsługuje dyktowania. Użyj Chrome lub Edge."); return; }
@@ -517,10 +518,10 @@ export default function Page() {
     rec.continuous = true;
     rec.interimResults = false;
 
-    rec.onresult = (e: SpeechRecognitionEvent) => {
+    rec.onresult = (e: any) => {
       const transcript = Array.from(e.results)
         .slice(e.resultIndex)
-        .map((r) => r[0].transcript)
+        .map((r: any) => r[0].transcript)
         .join(" ");
       setDesignPrompt((prev) => (prev ? prev + " " + transcript : transcript).trim());
     };
