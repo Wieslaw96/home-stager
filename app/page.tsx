@@ -166,9 +166,15 @@ const SPECIALITY_DECORS: { id: string; label: string }[] = [
 
 const YARD_TYPES = ["Front Yard", "Backyard", "Side Yard"];
 const GARDEN_STYLES = [
-  "Garden", "Shade Garden", "Herb and Vegetable Garden", "Flower Garden",
-  "Zen Garden", "Tropical Garden", "Desert Garden", "Wildlife Garden",
-  "Rock Garden", "Cottage Garden",
+  "Garden", "Custom", "Shade Garden", "Herb and Vegetable garden",
+  "California Style Garden", "Evergreen Garden", "Aquatic Garden",
+  "Picturesque Garden", "New England Style Garden", "Colonial Style Garden",
+  "Terraced Garden", "Bamboo Garden", "Patio Garden",
+  "Pollinators-Friendly Garden", "Drought Resistant Garden", "Container Garden",
+  "Tropical Garden", "Japanese Zen Garden", "Mediterranean Garden",
+  "Rock Garden", "Private Courtyard Garden", "Outdoor Staircase Garden",
+  "Mounds or Berms", "Therapeutic Garden", "Alpine Garden",
+  "Feng Shui Garden", "Vertical Garden", "Chinese Garden",
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
