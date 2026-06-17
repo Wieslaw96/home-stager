@@ -32,7 +32,7 @@ const MODES: { id: Mode; icon: string; label: string; desc: string; needsImage: 
   { id: "staging",         icon: "🛋️", label: "Staging",       desc: "Umebluj styl AI",          needsImage: true },
   { id: "inspirational",   icon: "💡", label: "Inspiracje",     desc: "Generuj bez zdjęcia",       needsImage: false },
   { id: "remove_objects",  icon: "🧹", label: "Opróżnij",       desc: "Usuń meble",                needsImage: true },
-  { id: "prime_walls",     icon: "🪣", label: "Oczyść ściany",  desc: "Oczyść kolory ścian",       needsImage: true },
+  { id: "prime_walls",     icon: "🪣", label: "Oczyść ściany",  desc: "Dla pomieszczeń w remoncie — wygładza surowe, niemalowane ściany", needsImage: true },
   { id: "wall_color",      icon: "🎨", label: "Kolor ścian",    desc: "Przemaluj ściany",          needsImage: true },
   { id: "cabinet_color",   icon: "🚪", label: "Szafki",         desc: "Zmień kolor szafek",        needsImage: true },
   { id: "remodel_kitchen", icon: "🍳", label: "Kuchnia",        desc: "Przebuduj kuchnię",         needsImage: true },
