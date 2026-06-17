@@ -239,7 +239,7 @@ function UploadZone({ preview, onFile }: { preview: string | null; onFile: (f: F
       onDragLeave={() => setDragging(false)}
       onDrop={(e) => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files[0]; if (f) handle(f); }}
       className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed aspect-[4/3] transition-all cursor-pointer select-none overflow-hidden
-        ${dragging ? "border-blue-500 bg-blue-50" : "border-slate-300 bg-white hover:border-slate-400 hover:bg-slate-50"}`}
+        ${dragging ? "border-[#C9A96E] bg-[#C9A96E]/5" : "border-white/10 bg-[#1a1a1a] hover:border-white/25 hover:bg-[#1f1f1f]"}`}
     >
       <input ref={ref} type="file" accept="image/*" capture="environment" className="hidden"
         onChange={(e) => { const f = e.target.files?.[0]; if (f) handle(f); }} />
@@ -253,10 +253,10 @@ function UploadZone({ preview, onFile }: { preview: string | null; onFile: (f: F
         </>
       ) : (
         <div className="flex flex-col items-center gap-3 p-6 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-3xl">📷</div>
+          <div className="w-16 h-16 rounded-2xl bg-white/8 flex items-center justify-center text-3xl">📷</div>
           <div>
-            <p className="font-semibold text-slate-700">Dodaj zdjęcie</p>
-            <p className="text-sm text-slate-500 mt-1">Zrób zdjęcie lub wybierz z galerii</p>
+            <p className="font-semibold text-white/70">Dodaj zdjęcie</p>
+            <p className="text-sm text-white/50 mt-1">Zrób zdjęcie lub wybierz z galerii</p>
           </div>
         </div>
       )}
@@ -269,10 +269,10 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
   return (
     <div className="flex flex-col gap-4">
       {original && (
-        <div className="md:hidden flex gap-2 p-1 bg-slate-100 rounded-xl">
+        <div className="md:hidden flex gap-2 p-1 bg-white/5 rounded-xl">
           {(["after", "before"] as const).map((t) => (
             <button key={t} onClick={() => setTab(t)}
-              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${tab === t ? "bg-white shadow text-slate-900" : "text-slate-500 hover:text-slate-700"}`}>
+              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${tab === t ? "bg-[#2a2a2a] shadow text-white" : "text-white/40 hover:text-white/70"}`}>
               {t === "after" ? "✨ Po" : "📷 Przed"}
             </button>
           ))}
@@ -280,15 +280,15 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
       )}
       {original ? (
         <>
-          <div className="md:hidden relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+          <div className="md:hidden relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/6">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={tab === "after" ? result : original} alt={tab === "after" ? "Wynik" : "Oryginał"} className="w-full h-full object-cover" />
           </div>
           <div className="hidden md:grid md:grid-cols-2 md:gap-4">
             {[{ src: original, lbl: "📷 Przed" }, { src: result, lbl: "✨ Po" }].map(({ src, lbl }) => (
               <div key={lbl} className="flex flex-col gap-2">
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{lbl}</p>
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+                <p className="text-xs font-semibold text-white/50 uppercase tracking-wide">{lbl}</p>
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/6">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt={lbl} className="w-full h-full object-cover" />
                 </div>
@@ -297,18 +297,18 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
           </div>
         </>
       ) : (
-        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
+        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white/6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={result} alt="Wynik" className="w-full h-full object-cover" />
         </div>
       )}
       <div className="flex gap-2">
         <a href={result} download="result.jpg"
-          className="flex-1 py-3 text-center rounded-xl bg-slate-900 text-white font-semibold text-sm hover:bg-slate-800 active:scale-[0.98] transition-all">
+          className="flex-1 py-3 text-center rounded-xl bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a] font-semibold text-sm hover:opacity-90 active:scale-[0.98] transition-all">
           Pobierz wynik
         </a>
         <button onClick={onReset}
-          className="px-4 py-3 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 active:scale-[0.98] transition-all">
+          className="px-4 py-3 rounded-xl border border-white/10 text-white/50 font-semibold text-sm hover:bg-white/5 hover:text-white/70 active:scale-[0.98] transition-all">
           Nowe
         </button>
       </div>
@@ -320,39 +320,39 @@ function HistoryPanel({ entries, onDelete }: { entries: HistoryEntry[]; onDelete
   if (entries.length === 0) {
     return (
       <div className="flex flex-col items-center gap-3 py-20 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-3xl">🖼️</div>
-        <p className="font-semibold text-slate-700">Brak wygenerowanych wizualizacji</p>
-        <p className="text-sm text-slate-400">Przejdź do zakładki Staging i wygeneruj pierwsze zdjęcie.</p>
+        <div className="w-16 h-16 rounded-2xl bg-white/6 flex items-center justify-center text-3xl">🖼️</div>
+        <p className="font-semibold text-white/70">Brak wygenerowanych wizualizacji</p>
+        <p className="text-sm text-white/40">Przejdź do zakładki Staging i wygeneruj pierwsze zdjęcie.</p>
       </div>
     );
   }
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-xs text-slate-400 text-right">{entries.length} / {MAX_HISTORY} wizualizacji</p>
+      <p className="text-xs text-white/40 text-right">{entries.length} / {MAX_HISTORY} wizualizacji</p>
       <div className="flex flex-col gap-3 md:grid md:grid-cols-2">
         {entries.map((e) => (
-          <div key={e.id} className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+          <div key={e.id} className="bg-[#161616] rounded-2xl border border-white/6 overflow-hidden">
             <div className="flex gap-3 p-3">
-              <div className="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-100">
+              <div className="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-white/6">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {e.thumbnail && <img src={e.thumbnail} alt="Oryginał" className="absolute inset-0 w-full h-full object-cover opacity-60" />}
               </div>
-              <div className="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-100">
+              <div className="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-white/6">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={e.resultUrl} alt="Wynik" className="absolute inset-0 w-full h-full object-cover" />
               </div>
               <div className="flex flex-col justify-between flex-1 min-w-0">
                 <div>
-                  <p className="font-semibold text-slate-800 text-sm leading-tight truncate">{e.label}</p>
-                  <p className="text-xs text-slate-400 mt-1">{formatDate(e.createdAt)}</p>
+                  <p className="font-semibold text-white/85 text-sm leading-tight truncate">{e.label}</p>
+                  <p className="text-xs text-white/40 mt-1">{formatDate(e.createdAt)}</p>
                 </div>
                 <div className="flex gap-1.5 mt-2">
                   <a href={e.resultUrl} download="result.jpg"
-                    className="px-2.5 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-medium hover:bg-slate-800 transition-colors">
+                    className="px-2.5 py-1.5 rounded-lg bg-[#C9A96E]/15 text-[#C9A96E] text-xs font-medium hover:bg-[#C9A96E]/25 border border-[#C9A96E]/20 transition-colors">
                     Pobierz
                   </a>
                   <button onClick={() => onDelete(e.id)}
-                    className="ml-auto px-2.5 py-1.5 rounded-lg text-slate-400 text-xs hover:text-red-500 hover:bg-red-50 transition-colors">
+                    className="ml-auto px-2.5 py-1.5 rounded-lg text-white/30 text-xs hover:text-red-400 hover:bg-red-950/30 transition-colors">
                     ✕
                   </button>
                 </div>
@@ -375,9 +375,9 @@ function Select({ label, value, onChange, options }: {
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-sm font-semibold text-slate-700">{label}</label>
+      <label className="text-sm font-semibold text-white/70">{label}</label>
       <select value={value} onChange={(e) => onChange(e.target.value)}
-        className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400">
+        className="w-full border border-white/8 rounded-xl px-3 py-2.5 text-sm text-white/80 bg-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-white/20 [color-scheme:dark]">
         {options.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
       </select>
     </div>
@@ -400,7 +400,7 @@ const WALL_COLOR_PRESETS = [
 function ColorInput({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-semibold text-slate-700">{label}</label>
+      <label className="text-sm font-semibold text-white/70">{label}</label>
       <div className="grid grid-cols-5 gap-2">
         {WALL_COLOR_PRESETS.map((c) => (
           <button
@@ -408,7 +408,7 @@ function ColorInput({ label, value, onChange }: { label: string; value: string; 
             title={c.name}
             onClick={() => onChange(c.hex)}
             className={`h-9 rounded-lg border-2 transition-all ${
-              value.toUpperCase() === c.hex ? "border-slate-900 scale-110 shadow-md" : "border-slate-200 hover:border-slate-400"
+              value.toUpperCase() === c.hex ? "border-[#C9A96E] scale-110 shadow-md shadow-[#C9A96E]/20" : "border-white/10 hover:border-white/25"
             }`}
             style={{ backgroundColor: c.hex }}
           />
@@ -416,9 +416,9 @@ function ColorInput({ label, value, onChange }: { label: string; value: string; 
       </div>
       <div className="flex gap-3 items-center mt-1">
         <input type="color" value={value} onChange={(e) => onChange(e.target.value)}
-          className="w-9 h-9 rounded-lg border border-slate-200 cursor-pointer p-0.5 bg-white" />
-        <span className="font-mono text-xs text-slate-500">Niestandardowy kolor</span>
-        <span className="font-mono text-sm text-slate-700 bg-slate-100 px-2 py-1 rounded-lg ml-auto">{value.toUpperCase()}</span>
+          className="w-9 h-9 rounded-lg border border-white/8 cursor-pointer p-0.5 bg-[#1a1a1a]" />
+        <span className="font-mono text-xs text-white/50">Niestandardowy kolor</span>
+        <span className="font-mono text-sm text-white/70 bg-white/6 px-2 py-1 rounded-lg ml-auto">{value.toUpperCase()}</span>
       </div>
     </div>
   );
@@ -432,11 +432,11 @@ function ToggleGroup({ label, options, value, onChange }: {
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-sm font-semibold text-slate-700">{label}</label>
+      <label className="text-sm font-semibold text-white/70">{label}</label>
       <div className="flex gap-2 flex-wrap">
         {options.map((o) => (
           <button key={o.id} onClick={() => onChange(o.id)}
-            className={`px-3 py-2 rounded-xl text-sm font-medium border-2 transition-all ${value === o.id ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 text-slate-700 hover:border-slate-300"}`}>
+            className={`px-3 py-2 rounded-xl text-sm font-medium border-2 transition-all ${value === o.id ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#C9A96E]" : "border-white/8 text-white/60 hover:border-white/20 hover:bg-white/5"}`}>
             {o.label}
           </button>
         ))}
@@ -608,36 +608,36 @@ export default function Page() {
   const canGenerate = isGenerating ? false : currentMode.needsImage ? !!imageBase64 : true;
 
   return (
-    <div className="min-h-svh bg-slate-50">
+    <div className="min-h-svh bg-[#0f0f0f]">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-white border-b border-slate-100">
+      <header className="sticky top-0 z-10 bg-[#161616] border-b border-white/6 backdrop-blur-md">
         <div className="px-4 py-3 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white text-sm">🏠</div>
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
           <div>
-            <h1 className="font-bold text-slate-900 leading-none">RoomStager</h1>
-            <p className="text-xs text-slate-500">AI Virtual Staging</p>
+            <h1 className="font-bold text-white leading-none">RoomStager</h1>
+            <p className="text-xs text-white/50">AI Virtual Staging</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
             {userPlan && (
-              <div className="hidden sm:flex items-center gap-2 text-xs text-slate-500">
-                <span className="bg-blue-100 text-blue-700 font-semibold px-2 py-0.5 rounded-full">{PLAN_LABELS[userPlan]}</span>
+              <div className="hidden sm:flex items-center gap-2 text-xs text-white/50">
+                <span className="bg-[#C9A96E]/15 text-[#C9A96E] font-semibold px-2 py-0.5 rounded-full">{PLAN_LABELS[userPlan]}</span>
                 {PLAN_LIMITS[userPlan] !== null && <span>{usageCount}/{PLAN_LIMITS[userPlan]} gen.</span>}
               </div>
             )}
             {userEmail && (
               <button onClick={async () => { await createClient().auth.signOut(); router.push("/login"); }}
-                className="text-xs text-slate-400 hover:text-slate-600 transition-colors px-2 py-1 rounded-lg hover:bg-slate-100">
+                className="text-xs text-white/40 hover:text-white/60 transition-colors px-2 py-1 rounded-lg hover:bg-white/6">
                 Wyloguj
               </button>
             )}
           </div>
         </div>
-        <div className="flex border-t border-slate-100">
+        <div className="flex border-t border-white/6">
           {(["staging", "history"] as Tab[]).map((t) => (
             <button key={t} onClick={() => setTab(t)}
-              className={`flex-1 py-2.5 text-sm font-medium transition-colors relative ${tab === t ? "text-slate-900" : "text-slate-400 hover:text-slate-600"}`}>
+              className={`flex-1 py-2.5 text-sm font-medium transition-colors relative ${tab === t ? "text-white" : "text-white/40 hover:text-white/60"}`}>
               {t === "staging" ? "Staging" : `Historia${history.length > 0 ? ` (${history.length})` : ""}`}
-              {tab === t && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-900 rounded-full" />}
+              {tab === t && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C9A96E] rounded-full" />}
             </button>
           ))}
         </div>
@@ -655,25 +655,25 @@ export default function Page() {
           <div className="flex flex-col gap-6">
             {/* Mode selector */}
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-semibold text-slate-700">Tryb</label>
+              <label className="text-sm font-semibold text-white/70">Tryb</label>
               <div className="flex gap-2 overflow-x-auto pb-1 snap-x">
                 {MODES.map((m) => (
                   <button key={m.id} onClick={() => { setMode(m.id); setResult(null); setError(null); }}
                     className={`flex-shrink-0 snap-start flex flex-col items-center gap-1 px-3 py-2.5 rounded-2xl border-2 text-center transition-all min-w-[72px]
-                      ${mode === m.id ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"}`}>
+                      ${mode === m.id ? "border-[#C9A96E] bg-[#C9A96E]/10 text-white" : "border-white/8 bg-[#1a1a1a] text-white/60 hover:border-white/20 hover:bg-white/5"}`}>
                     <span className="text-xl">{m.icon}</span>
                     <span className="text-xs font-medium leading-tight whitespace-nowrap">{m.label}</span>
                   </button>
                 ))}
               </div>
-              <p className="text-xs text-slate-400">{currentMode.desc}</p>
+              <p className="text-xs text-white/40">{currentMode.desc}</p>
             </div>
 
             <div className="md:grid md:grid-cols-2 md:gap-8 flex flex-col gap-6">
               {/* Left column — upload */}
               {currentMode.needsImage && (
                 <section className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-slate-700">Zdjęcie</label>
+                  <label className="text-sm font-semibold text-white/70">Zdjęcie</label>
                   <UploadZone preview={imagePreview} onFile={handleFile} />
                 </section>
               )}
@@ -700,7 +700,7 @@ export default function Page() {
                     <Select label="Typ pomieszczenia" value={roomType} onChange={setRoomType} options={ROOMS} />
                     <div className="flex flex-col gap-1.5">
                       <div className="flex items-center justify-between">
-                        <label className="text-sm font-semibold text-slate-700">Opis wizji</label>
+                        <label className="text-sm font-semibold text-white/70">Opis wizji</label>
                         <button
                           type="button"
                           onClick={toggleListening}
@@ -708,7 +708,7 @@ export default function Page() {
                           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                             isListening
                               ? "bg-red-500 text-white animate-pulse"
-                              : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                              : "bg-white/5 text-white/50 hover:bg-white/10"
                           }`}
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
@@ -723,11 +723,11 @@ export default function Page() {
                         onChange={(e) => setDesignPrompt(e.target.value)}
                         placeholder="np. nowoczesny salon z dużymi oknami, ciemne drewno, szare akcenty, rośliny..."
                         rows={4}
-                        className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 resize-none transition-all ${
-                          isListening ? "border-red-300 focus:ring-red-200" : "border-slate-200 focus:ring-slate-300"
+                        className={`w-full rounded-xl border bg-[#1a1a1a] px-3 py-2.5 text-sm text-white/80 placeholder:text-white/30 focus:outline-none focus:ring-2 resize-none transition-all ${
+                          isListening ? "border-red-500/50 focus:ring-red-500/20" : "border-white/8 focus:ring-white/20"
                         }`}
                       />
-                      <p className="text-xs text-slate-400">Opisz styl, kolory, meble i nastrój który chcesz uzyskać. Możesz dyktować lub pisać.</p>
+                      <p className="text-xs text-white/40">Opisz styl, kolory, meble i nastrój który chcesz uzyskać. Możesz dyktować lub pisać.</p>
                     </div>
                   </>
                 )}
@@ -769,14 +769,14 @@ export default function Page() {
 
                 {/* Advanced options */}
                 {["staging", "inspirational", "remodel_kitchen", "remodel_bathroom"].includes(mode) && (
-                  <div className="border border-slate-200 rounded-2xl overflow-hidden">
+                  <div className="border border-white/8 rounded-2xl overflow-hidden">
                     <button onClick={() => setShowAdvanced((v) => !v)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">
+                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-white/70 hover:bg-white/5 transition-colors">
                       <span>Opcje zaawansowane</span>
                       <span className={`transition-transform ${showAdvanced ? "rotate-180" : ""}`}>▾</span>
                     </button>
                     {showAdvanced && (
-                      <div className="px-4 pb-4 flex flex-col gap-4 border-t border-slate-100 pt-4">
+                      <div className="px-4 pb-4 flex flex-col gap-4 border-t border-white/6 pt-4">
                         <Select label="Schemat kolorów" value={colorScheme} onChange={setColorScheme} options={COLOR_SCHEMES} />
                         <Select label="Dekoracje sezonowe" value={specialityDecor} onChange={setSpecialityDecor} options={SPECIALITY_DECORS} />
                       </div>
@@ -786,10 +786,10 @@ export default function Page() {
 
                 {/* Error */}
                 {error && (
-                  <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex flex-col gap-2">
+                  <div className="p-4 rounded-xl bg-red-950/40 border border-red-900/30 text-red-400 text-sm flex flex-col gap-2">
                     <p>{error}</p>
                     {errorCode === "limit_reached" && (
-                      <Link href="/pricing" className="text-blue-600 font-semibold hover:underline text-xs">Kup wyższy plan →</Link>
+                      <Link href="/pricing" className="text-[#C9A96E] font-semibold hover:underline text-xs">Kup wyższy plan →</Link>
                     )}
                   </div>
                 )}
@@ -797,7 +797,7 @@ export default function Page() {
                 {/* Generate */}
                 <button onClick={handleGenerate} disabled={!canGenerate}
                   className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]
-                    ${canGenerate ? "bg-slate-900 text-white hover:bg-slate-800 shadow-lg shadow-slate-900/20" : "bg-slate-200 text-slate-400 cursor-not-allowed"}`}>
+                    ${canGenerate ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a] hover:opacity-90 shadow-lg shadow-[#C9A96E]/25" : "bg-white/6 text-white/20 cursor-not-allowed"}`}>
                   {isGenerating ? (
                     <span className="flex items-center justify-center gap-2">
                       <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
@@ -810,7 +810,7 @@ export default function Page() {
                 </button>
 
                 {currentMode.needsImage && !imageBase64 && (
-                  <p className="text-center text-sm text-slate-400">Najpierw dodaj zdjęcie</p>
+                  <p className="text-center text-sm text-white/40">Najpierw dodaj zdjęcie</p>
                 )}
               </div>
             </div>
