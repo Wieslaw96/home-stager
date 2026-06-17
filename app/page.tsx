@@ -463,6 +463,8 @@ export default function Page() {
   const [wallColor, setWallColor] = useState("#FFFFFF");
   const [cabinetColor, setCabinetColor] = useState("#FFFFFF");
   const [designPrompt, setDesignPrompt] = useState("");
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   const [skyType, setSkyType] = useState("day");
   const [scaleFactor, setScaleFactor] = useState(2);
   const [renderType, setRenderType] = useState("perspective");
@@ -497,6 +499,39 @@ export default function Page() {
       setUsageCount(usage?.count ?? 0);
     });
   }, []);
+
+  const toggleListening = useCallback(() => {
+    const SR = (typeof window !== "undefined")
+      ? (window.SpeechRecognition ?? (window as unknown as { webkitSpeechRecognition?: typeof SpeechRecognition }).webkitSpeechRecognition)
+      : undefined;
+
+    if (!SR) { alert("Twoja przeglądarka nie obsługuje dyktowania. Użyj Chrome lub Edge."); return; }
+
+    if (isListening) {
+      recognitionRef.current?.stop();
+      return;
+    }
+
+    const rec = new SR();
+    rec.lang = "pl-PL";
+    rec.continuous = true;
+    rec.interimResults = false;
+
+    rec.onresult = (e: SpeechRecognitionEvent) => {
+      const transcript = Array.from(e.results)
+        .slice(e.resultIndex)
+        .map((r) => r[0].transcript)
+        .join(" ");
+      setDesignPrompt((prev) => (prev ? prev + " " + transcript : transcript).trim());
+    };
+
+    rec.onend = () => setIsListening(false);
+    rec.onerror = () => setIsListening(false);
+
+    recognitionRef.current = rec;
+    rec.start();
+    setIsListening(true);
+  }, [isListening]);
 
   const handleFile = useCallback(async (file: File) => {
     setResult(null); setError(null);
@@ -663,15 +698,35 @@ export default function Page() {
                   <>
                     <Select label="Typ pomieszczenia" value={roomType} onChange={setRoomType} options={ROOMS} />
                     <div className="flex flex-col gap-1.5">
-                      <label className="text-sm font-semibold text-slate-700">Opis wizji</label>
+                      <div className="flex items-center justify-between">
+                        <label className="text-sm font-semibold text-slate-700">Opis wizji</label>
+                        <button
+                          type="button"
+                          onClick={toggleListening}
+                          title={isListening ? "Zatrzymaj dyktowanie" : "Dyktuj przez mikrofon"}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                            isListening
+                              ? "bg-red-500 text-white animate-pulse"
+                              : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                          }`}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
+                            <path d="M8.25 4.5a3.75 3.75 0 1 1 7.5 0v8.25a3.75 3.75 0 1 1-7.5 0V4.5Z" />
+                            <path d="M6 10.5a.75.75 0 0 1 .75.75v1.5a5.25 5.25 0 1 0 10.5 0v-1.5a.75.75 0 0 1 1.5 0v1.5a6.751 6.751 0 0 1-6 6.709v2.291h3a.75.75 0 0 1 0 1.5h-7.5a.75.75 0 0 1 0-1.5h3v-2.291a6.751 6.751 0 0 1-6-6.709v-1.5A.75.75 0 0 1 6 10.5Z" />
+                          </svg>
+                          {isListening ? "Słucham..." : "Dyktuj"}
+                        </button>
+                      </div>
                       <textarea
                         value={designPrompt}
                         onChange={(e) => setDesignPrompt(e.target.value)}
                         placeholder="np. nowoczesny salon z dużymi oknami, ciemne drewno, szare akcenty, rośliny..."
                         rows={4}
-                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-300 resize-none"
+                        className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 resize-none transition-all ${
+                          isListening ? "border-red-300 focus:ring-red-200" : "border-slate-200 focus:ring-slate-300"
+                        }`}
                       />
-                      <p className="text-xs text-slate-400">Opisz styl, kolory, meble i nastrój który chcesz uzyskać.</p>
+                      <p className="text-xs text-slate-400">Opisz styl, kolory, meble i nastrój który chcesz uzyskać. Możesz dyktować lub pisać.</p>
                     </div>
                   </>
                 )}
