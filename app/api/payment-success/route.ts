@@ -11,9 +11,11 @@ function adminClient() {
 }
 
 export async function GET(req: NextRequest) {
-  const sessionId = new URL(req.url).searchParams.get("session_id");
+  const url = new URL(req.url);
+  const sessionId = url.searchParams.get("session_id");
+
   if (!sessionId) {
-    return NextResponse.redirect(new URL("/pricing", req.url));
+    return NextResponse.redirect(new URL("/pricing?error=missing_session", req.url));
   }
 
   const supabase = await createClient();
@@ -22,36 +24,55 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  try {
-    const stripe = getStripe();
-    const session = await stripe.checkout.sessions.retrieve(sessionId, {
-      expand: ["subscription"],
-    });
+  const stripe = getStripe();
+  const session = await stripe.checkout.sessions.retrieve(sessionId, {
+    expand: ["subscription"],
+  });
 
-    if (session.payment_status !== "paid" && session.payment_status !== "no_payment_required") {
-      return NextResponse.redirect(new URL("/pricing?error=payment_failed", req.url));
-    }
+  if (session.payment_status !== "paid" && session.payment_status !== "no_payment_required") {
+    return NextResponse.redirect(new URL("/pricing?error=payment_incomplete", req.url));
+  }
 
-    if (session.mode === "subscription" && session.subscription) {
-      const sub = session.subscription as import("stripe").Stripe.Subscription;
-      const planKey = getPlanByPriceId(sub.items.data[0].price.id);
+  if (session.mode === "subscription" && session.subscription) {
+    const rawSub = session.subscription;
+    const subId = typeof rawSub === "string" ? rawSub : rawSub.id;
+    const sub = typeof rawSub === "string"
+      ? await stripe.subscriptions.retrieve(rawSub)
+      : rawSub;
 
-      if (planKey) {
-        await adminClient().from("subscriptions").upsert({
-          id: sub.id,
-          user_id: user.id,
-          plan: planKey,
-          status: sub.status,
-          current_period_end: new Date(
-            (sub as unknown as { current_period_end: number }).current_period_end * 1000
-          ).toISOString(),
-          cancel_at_period_end: sub.cancel_at_period_end,
-          updated_at: new Date().toISOString(),
-        });
+    const planKey = getPlanByPriceId(sub.items.data[0].price.id);
+
+    if (planKey) {
+      const admin = adminClient();
+
+      // Ensure profile row exists (FK constraint)
+      await admin.from("profiles").upsert({
+        id: user.id,
+        email: user.email ?? "",
+      }, { onConflict: "id", ignoreDuplicates: true });
+
+      const { error } = await admin.from("subscriptions").upsert({
+        id: subId,
+        user_id: user.id,
+        plan: planKey,
+        status: sub.status,
+        current_period_end: new Date(
+          (sub as unknown as { current_period_end: number }).current_period_end * 1000
+        ).toISOString(),
+        cancel_at_period_end: sub.cancel_at_period_end,
+        updated_at: new Date().toISOString(),
+      });
+
+      if (error) {
+        console.error("[payment-success] upsert error:", error);
+        return NextResponse.redirect(
+          new URL(`/pricing?error=db_error&msg=${encodeURIComponent(error.message)}`, req.url)
+        );
       }
+    } else {
+      console.error("[payment-success] unknown priceId:", sub.items.data[0].price.id);
+      return NextResponse.redirect(new URL("/pricing?error=unknown_plan", req.url));
     }
-  } catch {
-    // If Stripe check fails, still redirect to success — webhook may have already handled it
   }
 
   return NextResponse.redirect(new URL("/?success=1", req.url));
