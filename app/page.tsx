@@ -378,14 +378,41 @@ function Select({ label, value, onChange, options }: {
   );
 }
 
+const WALL_COLOR_PRESETS = [
+  { hex: "#FFFFFF", name: "Biel" },
+  { hex: "#F5F0E8", name: "Ciepła biel" },
+  { hex: "#EDE0C4", name: "Krem" },
+  { hex: "#D4B896", name: "Piasek" },
+  { hex: "#D0CCCA", name: "Jasny szary" },
+  { hex: "#B8B0A8", name: "Ciepły szary" },
+  { hex: "#B2BFB0", name: "Szałwia" },
+  { hex: "#A8BED0", name: "Błękit" },
+  { hex: "#C8916A", name: "Terakota" },
+  { hex: "#484848", name: "Antracyt" },
+];
+
 function ColorInput({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <label className="text-sm font-semibold text-slate-700">{label}</label>
-      <div className="flex gap-3 items-center">
+      <div className="grid grid-cols-5 gap-2">
+        {WALL_COLOR_PRESETS.map((c) => (
+          <button
+            key={c.hex}
+            title={c.name}
+            onClick={() => onChange(c.hex)}
+            className={`h-9 rounded-lg border-2 transition-all ${
+              value.toUpperCase() === c.hex ? "border-slate-900 scale-110 shadow-md" : "border-slate-200 hover:border-slate-400"
+            }`}
+            style={{ backgroundColor: c.hex }}
+          />
+        ))}
+      </div>
+      <div className="flex gap-3 items-center mt-1">
         <input type="color" value={value} onChange={(e) => onChange(e.target.value)}
-          className="w-12 h-12 rounded-xl border border-slate-200 cursor-pointer p-1 bg-white" />
-        <span className="font-mono text-sm text-slate-600 bg-slate-100 px-3 py-1.5 rounded-lg">{value.toUpperCase()}</span>
+          className="w-9 h-9 rounded-lg border border-slate-200 cursor-pointer p-0.5 bg-white" />
+        <span className="font-mono text-xs text-slate-500">Niestandardowy kolor</span>
+        <span className="font-mono text-sm text-slate-700 bg-slate-100 px-2 py-1 rounded-lg ml-auto">{value.toUpperCase()}</span>
       </div>
     </div>
   );
