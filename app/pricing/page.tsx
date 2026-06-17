@@ -29,7 +29,7 @@ export default async function PricingPage() {
         <span className="font-bold text-slate-800 text-lg">RoomStager</span>
         <div className="flex items-center gap-3">
           {user ? (
-            <Link href="/" className="text-sm text-blue-600 hover:underline">Przejdź do aplikacji →</Link>
+            <Link href="/app" className="text-sm text-blue-600 hover:underline">Przejdź do aplikacji →</Link>
           ) : (
             <>
               <Link href="/login" className="text-sm text-slate-600 hover:text-slate-800">Zaloguj się</Link>

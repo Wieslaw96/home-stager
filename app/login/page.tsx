@@ -22,7 +22,7 @@ export default function LoginPage() {
       setError("Nieprawidłowy e-mail lub hasło.");
       setLoading(false);
     } else {
-      router.push("/");
+      router.push("/app");
       router.refresh();
     }
   }
