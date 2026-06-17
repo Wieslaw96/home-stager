@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
       }
 
       case "prime_walls": {
-        const data = await decor8Form("prime_walls_for_room", { input_image_url: imageUrl! });
+        const data = await decor8Json("prime_walls_for_room", { input_image_url: imageUrl });
         resultUrl = extractUrl(data);
         break;
       }
