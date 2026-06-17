@@ -12,7 +12,7 @@ type Tab = "staging" | "history";
 type Mode =
   | "staging" | "inspirational" | "prime_walls" | "remove_objects"
   | "wall_color" | "cabinet_color" | "remodel_kitchen" | "remodel_bathroom"
-  | "upscale" | "sketch_3d" | "sky_replace" | "landscaping";
+  | "upscale" | "sky_replace" | "landscaping" | "prompt_design";
 
 interface HistoryEntry {
   id: string;
@@ -38,9 +38,9 @@ const MODES: { id: Mode; icon: string; label: string; desc: string; needsImage: 
   { id: "remodel_kitchen", icon: "🍳", label: "Kuchnia",        desc: "Przebuduj kuchnię",         needsImage: true },
   { id: "remodel_bathroom",icon: "🚿", label: "Łazienka",       desc: "Przebuduj łazienkę",        needsImage: true },
   { id: "upscale",         icon: "🔍", label: "Upscale",        desc: "Zwiększ rozdzielczość",     needsImage: true },
-  { id: "sketch_3d",       icon: "✏️", label: "Szkic → 3D",    desc: "Render z planu",            needsImage: true },
   { id: "sky_replace",     icon: "☁️", label: "Niebo",          desc: "Zmień niebo za domem",     needsImage: true },
   { id: "landscaping",     icon: "🌿", label: "Ogród",          desc: "Zaprojektuj ogród",         needsImage: true },
+  { id: "prompt_design",   icon: "✍️", label: "Z opisu",        desc: "Opisz swoją wizję tekstem", needsImage: true },
 ];
 
 const ROOMS: { id: string; label: string }[] = [
@@ -462,6 +462,7 @@ export default function Page() {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [wallColor, setWallColor] = useState("#FFFFFF");
   const [cabinetColor, setCabinetColor] = useState("#FFFFFF");
+  const [designPrompt, setDesignPrompt] = useState("");
   const [skyType, setSkyType] = useState("day");
   const [scaleFactor, setScaleFactor] = useState(2);
   const [renderType, setRenderType] = useState("perspective");
@@ -512,12 +513,12 @@ export default function Page() {
       case "staging":
       case "inspirational":
       case "remodel_kitchen":
-      case "remodel_bathroom":
-      case "sketch_3d": {
+      case "remodel_bathroom": {
         const r = ROOMS.find((r) => r.id === roomType);
         const s = STYLES.find((s) => s.id === style);
         return `${modeLabel} — ${s?.label ?? style}${r ? ` / ${r.label}` : ""}`;
       }
+      case "prompt_design": return `${modeLabel} — ${designPrompt.slice(0, 40) || "brak opisu"}`;
       case "wall_color":    return `${modeLabel} — ${wallColor.toUpperCase()}`;
       case "cabinet_color": return `${modeLabel} — ${cabinetColor.toUpperCase()}`;
       case "sky_replace":   return `${modeLabel} — ${skyType}`;
@@ -539,6 +540,7 @@ export default function Page() {
           roomType, style, colorScheme, specialityDecor,
           wallColor, cabinetColor, skyType,
           scaleFactor, renderType, yardType, gardenStyle,
+          designPrompt,
         }),
       });
       const data = await res.json();
@@ -656,12 +658,21 @@ export default function Page() {
                   <Select label="Styl" value={style} onChange={setStyle} options={STYLES} />
                 )}
 
-                {/* sketch_3d */}
-                {mode === "sketch_3d" && (
+                {/* prompt_design */}
+                {mode === "prompt_design" && (
                   <>
-                    <Select label="Styl" value={style} onChange={setStyle} options={STYLES} />
-                    <ToggleGroup label="Typ renderowania" value={renderType} onChange={setRenderType}
-                      options={[{ id: "perspective", label: "Perspektywa" }, { id: "isometric", label: "Izometria" }]} />
+                    <Select label="Typ pomieszczenia" value={roomType} onChange={setRoomType} options={ROOMS} />
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-sm font-semibold text-slate-700">Opis wizji</label>
+                      <textarea
+                        value={designPrompt}
+                        onChange={(e) => setDesignPrompt(e.target.value)}
+                        placeholder="np. nowoczesny salon z dużymi oknami, ciemne drewno, szare akcenty, rośliny..."
+                        rows={4}
+                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-300 resize-none"
+                      />
+                      <p className="text-xs text-slate-400">Opisz styl, kolory, meble i nastrój który chcesz uzyskać.</p>
+                    </div>
                   </>
                 )}
 
@@ -700,8 +711,8 @@ export default function Page() {
                   </>
                 )}
 
-                {/* Advanced options (staging, inspirational, sketch_3d, remodel) */}
-                {["staging", "inspirational", "remodel_kitchen", "remodel_bathroom", "sketch_3d"].includes(mode) && (
+                {/* Advanced options */}
+                {["staging", "inspirational", "remodel_kitchen", "remodel_bathroom"].includes(mode) && (
                   <div className="border border-slate-200 rounded-2xl overflow-hidden">
                     <button onClick={() => setShowAdvanced((v) => !v)}
                       className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">

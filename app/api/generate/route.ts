@@ -113,6 +113,7 @@ export async function POST(req: NextRequest) {
     wallColor, cabinetColor,
     skyType, scaleFactor, renderType,
     yardType, gardenStyle,
+    designPrompt,
   } = body;
 
   if (!mode) return Response.json({ error: "Brak trybu." }, { status: 400 });
@@ -254,6 +255,20 @@ export async function POST(req: NextRequest) {
       case "sky_replace": {
         if (!skyType) throw new Error("Brak typu nieba.");
         const data = await decor8Json("replace_sky_behind_house", { input_image_url: imageUrl, sky_type: skyType });
+        resultUrl = extractUrl(data);
+        break;
+      }
+
+      case "prompt_design": {
+        if (!designPrompt?.trim()) throw new Error("Brak opisu wizji.");
+        const data = await decor8Json("generate_designs_for_room", {
+          input_image_url: imageUrl,
+          room_type: ROOM_MAP[roomType] ?? "livingroom",
+          design_style: "custom",
+          num_images: 1,
+          scale_factor: 2,
+          prompt: designPrompt.trim(),
+        });
         resultUrl = extractUrl(data);
         break;
       }
