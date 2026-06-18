@@ -32,7 +32,7 @@ export default function RegisterPage() {
   if (done) {
     return (
       <div className="min-h-screen bg-[#E8D9C4] flex items-center justify-center p-4">
-        <div className="w-full max-w-sm bg-white rounded-2xl border border-[#1A1410]/10 p-8 text-center">
+        <div className="w-full max-w-sm bg-white rounded-2xl border border-[#8B6B44]/35 p-8 text-center">
           <div className="text-4xl mb-4">📧</div>
           <h2 className="text-xl font-bold text-[#1A1410] mb-2">Sprawdź swoją skrzynkę</h2>
           <p className="text-sm text-[#1A1410]/50">
@@ -54,7 +54,7 @@ export default function RegisterPage() {
           <span className="font-bold text-lg text-[#1A1410] tracking-tight">RoomStager</span>
         </Link>
 
-        <div className="bg-white rounded-2xl border border-[#1A1410]/10 p-8">
+        <div className="bg-white rounded-2xl border border-[#8B6B44]/35 p-8">
           <h1 className="text-2xl font-bold text-[#1A1410] mb-1">Utwórz konto</h1>
           <p className="text-sm text-[#1A1410]/50 mb-6">
             Masz już konto?{" "}
@@ -69,7 +69,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#DCCFB8] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
+                className="w-full border border-[#8B6B44]/40 rounded-xl px-3 py-2.5 text-sm bg-white text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
                 placeholder="ty@example.com"
               />
             </div>
@@ -81,7 +81,7 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#DCCFB8] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
+                className="w-full border border-[#8B6B44]/40 rounded-xl px-3 py-2.5 text-sm bg-white text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
                 placeholder="min. 6 znaków"
               />
             </div>

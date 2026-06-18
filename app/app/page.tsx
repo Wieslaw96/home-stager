@@ -239,7 +239,7 @@ function UploadZone({ preview, onFile }: { preview: string | null; onFile: (f: F
       onDragLeave={() => setDragging(false)}
       onDrop={(e) => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files[0]; if (f) handle(f); }}
       className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed aspect-[4/3] transition-all cursor-pointer select-none overflow-hidden
-        ${dragging ? "border-[#C9A96E] bg-[#C9A96E]/5" : "border-[#1A1410]/12 bg-[#DCCFB8] hover:border-[#1A1410]/25 hover:bg-[#D5C8B0]"}`}
+        ${dragging ? "border-[#C9A96E] bg-[#C9A96E]/5" : "border-[#8B6B44]/35 bg-white hover:border-[#1A1410]/25 hover:bg-[#D5C8B0]"}`}
     >
       <input ref={ref} type="file" accept="image/*" capture="environment" className="hidden"
         onChange={(e) => { const f = e.target.files?.[0]; if (f) handle(f); }} />
@@ -253,7 +253,7 @@ function UploadZone({ preview, onFile }: { preview: string | null; onFile: (f: F
         </>
       ) : (
         <div className="flex flex-col items-center gap-3 p-6 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-[#1A1410]/8 flex items-center justify-center text-3xl">📷</div>
+          <div className="w-16 h-16 rounded-2xl bg-[#8B6B44]/12 flex items-center justify-center text-3xl">📷</div>
           <div>
             <p className="font-semibold text-[#1A1410]/70">Dodaj zdjęcie</p>
             <p className="text-sm text-[#1A1410]/50 mt-1">Zrób zdjęcie lub wybierz z galerii</p>
@@ -269,7 +269,7 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
   return (
     <div className="flex flex-col gap-4">
       {original && (
-        <div className="md:hidden flex gap-2 p-1 bg-[#1A1410]/5 rounded-xl">
+        <div className="md:hidden flex gap-2 p-1 bg-[#8B6B44]/8 rounded-xl">
           {(["after", "before"] as const).map((t) => (
             <button key={t} onClick={() => setTab(t)}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${tab === t ? "bg-[#CCBFA6] shadow text-[#1A1410]" : "text-[#1A1410]/40 hover:text-[#1A1410]/70"}`}>
@@ -280,7 +280,7 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
       )}
       {original ? (
         <>
-          <div className="md:hidden relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#1A1410]/6">
+          <div className="md:hidden relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#8B6B44]/10">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={tab === "after" ? result : original} alt={tab === "after" ? "Wynik" : "Oryginał"} className="w-full h-full object-cover" />
           </div>
@@ -288,7 +288,7 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
             {[{ src: original, lbl: "📷 Przed" }, { src: result, lbl: "✨ Po" }].map(({ src, lbl }) => (
               <div key={lbl} className="flex flex-col gap-2">
                 <p className="text-xs font-semibold text-[#1A1410]/50 uppercase tracking-wide">{lbl}</p>
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#1A1410]/6">
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#8B6B44]/10">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt={lbl} className="w-full h-full object-cover" />
                 </div>
@@ -297,7 +297,7 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
           </div>
         </>
       ) : (
-        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#1A1410]/6">
+        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#8B6B44]/10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={result} alt="Wynik" className="w-full h-full object-cover" />
         </div>
@@ -308,7 +308,7 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
           Pobierz wynik
         </a>
         <button onClick={onReset}
-          className="px-4 py-3 rounded-xl border border-[#1A1410]/12 text-[#1A1410]/50 font-semibold text-sm hover:bg-[#1A1410]/5 hover:text-[#1A1410]/70 active:scale-[0.98] transition-all">
+          className="px-4 py-3 rounded-xl border-2 border-[#8B6B44]/50 text-[#5C3412] font-semibold text-sm hover:bg-[#8B6B44]/10 active:scale-[0.98] transition-all">
           Nowe
         </button>
       </div>
@@ -320,7 +320,7 @@ function HistoryPanel({ entries, onDelete }: { entries: HistoryEntry[]; onDelete
   if (entries.length === 0) {
     return (
       <div className="flex flex-col items-center gap-3 py-20 text-center">
-        <div className="w-16 h-16 rounded-2xl bg-[#1A1410]/6 flex items-center justify-center text-3xl">🖼️</div>
+        <div className="w-16 h-16 rounded-2xl bg-[#8B6B44]/10 flex items-center justify-center text-3xl">🖼️</div>
         <p className="font-semibold text-[#1A1410]/70">Brak wygenerowanych wizualizacji</p>
         <p className="text-sm text-[#1A1410]/40">Przejdź do zakładki Staging i wygeneruj pierwsze zdjęcie.</p>
       </div>
@@ -331,13 +331,13 @@ function HistoryPanel({ entries, onDelete }: { entries: HistoryEntry[]; onDelete
       <p className="text-xs text-[#1A1410]/40 text-right">{entries.length} / {MAX_HISTORY} wizualizacji</p>
       <div className="flex flex-col gap-3 md:grid md:grid-cols-2">
         {entries.map((e) => (
-          <div key={e.id} className="bg-white rounded-2xl border border-[#1A1410]/8 overflow-hidden">
+          <div key={e.id} className="bg-white rounded-2xl border border-[#8B6B44]/25 overflow-hidden">
             <div className="flex gap-3 p-3">
-              <div className="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-[#1A1410]/6">
+              <div className="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-[#8B6B44]/10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {e.thumbnail && <img src={e.thumbnail} alt="Oryginał" className="absolute inset-0 w-full h-full object-cover opacity-60" />}
               </div>
-              <div className="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-[#1A1410]/6">
+              <div className="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-[#8B6B44]/10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={e.resultUrl} alt="Wynik" className="absolute inset-0 w-full h-full object-cover" />
               </div>
@@ -377,7 +377,7 @@ function Select({ label, value, onChange, options }: {
     <div className="flex flex-col gap-1.5">
       <label className="text-sm font-semibold text-[#1A1410]/70">{label}</label>
       <select value={value} onChange={(e) => onChange(e.target.value)}
-        className="w-full border border-[#1A1410]/10 rounded-xl px-3 py-2.5 text-sm text-[#1A1410]/80 bg-[#DCCFB8] focus:outline-none focus:ring-2 focus:ring-[#1A1410]/15 [color-scheme:light]">
+        className="w-full border border-[#8B6B44]/30 rounded-xl px-3 py-2.5 text-sm text-[#1A1410]/80 bg-white focus:outline-none focus:ring-2 focus:ring-[#1A1410]/15 [color-scheme:light]">
         {options.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
       </select>
     </div>
@@ -408,7 +408,7 @@ function ColorInput({ label, value, onChange }: { label: string; value: string; 
             title={c.name}
             onClick={() => onChange(c.hex)}
             className={`h-9 rounded-lg border-2 transition-all ${
-              value.toUpperCase() === c.hex ? "border-[#C9A96E] scale-110 shadow-md shadow-[#C9A96E]/20" : "border-[#1A1410]/12 hover:border-[#1A1410]/25"
+              value.toUpperCase() === c.hex ? "border-[#C9A96E] scale-110 shadow-md shadow-[#C9A96E]/20" : "border-[#8B6B44]/35 hover:border-[#1A1410]/25"
             }`}
             style={{ backgroundColor: c.hex }}
           />
@@ -416,9 +416,9 @@ function ColorInput({ label, value, onChange }: { label: string; value: string; 
       </div>
       <div className="flex gap-3 items-center mt-1">
         <input type="color" value={value} onChange={(e) => onChange(e.target.value)}
-          className="w-9 h-9 rounded-lg border border-[#1A1410]/10 cursor-pointer p-0.5 bg-[#DCCFB8]" />
+          className="w-9 h-9 rounded-lg border border-[#8B6B44]/30 cursor-pointer p-0.5 bg-white" />
         <span className="font-mono text-xs text-[#1A1410]/50">Niestandardowy kolor</span>
-        <span className="font-mono text-sm text-[#1A1410]/70 bg-[#1A1410]/6 px-2 py-1 rounded-lg ml-auto">{value.toUpperCase()}</span>
+        <span className="font-mono text-sm text-[#1A1410]/70 bg-[#8B6B44]/10 px-2 py-1 rounded-lg ml-auto">{value.toUpperCase()}</span>
       </div>
     </div>
   );
@@ -436,7 +436,7 @@ function ToggleGroup({ label, options, value, onChange }: {
       <div className="flex gap-2 flex-wrap">
         {options.map((o) => (
           <button key={o.id} onClick={() => onChange(o.id)}
-            className={`px-3 py-2 rounded-xl text-sm font-medium border-2 transition-all ${value === o.id ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#C9A96E]" : "border-[#1A1410]/10 text-[#1A1410]/60 hover:border-[#1A1410]/20 hover:bg-[#1A1410]/5"}`}>
+            className={`px-3 py-2 rounded-xl text-sm font-medium border-2 transition-all ${value === o.id ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#C9A96E]" : "border-[#8B6B44]/30 text-[#1A1410]/60 hover:border-[#8B6B44]/50 hover:bg-[#8B6B44]/8"}`}>
             {o.label}
           </button>
         ))}
@@ -610,7 +610,7 @@ export default function Page() {
   return (
     <div className="min-h-svh bg-[#E8D9C4]">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-white border-b border-[#1A1410]/8 backdrop-blur-md">
+      <header className="sticky top-0 z-10 bg-white border-b border-[#8B6B44]/25 backdrop-blur-md">
         <div className="px-4 py-3 flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
           <div>
@@ -626,13 +626,13 @@ export default function Page() {
             )}
             {userEmail && (
               <button onClick={async () => { await createClient().auth.signOut(); router.push("/login"); }}
-                className="text-xs text-[#1A1410]/40 hover:text-[#1A1410]/60 transition-colors px-2 py-1 rounded-lg hover:bg-[#1A1410]/6">
+                className="text-xs text-[#5C3412] font-semibold border border-[#5C3412]/40 hover:bg-[#5C3412]/8 transition-colors px-3 py-1 rounded-lg">
                 Wyloguj
               </button>
             )}
           </div>
         </div>
-        <div className="flex border-t border-[#1A1410]/8">
+        <div className="flex border-t border-[#8B6B44]/25">
           {(["staging", "history"] as Tab[]).map((t) => (
             <button key={t} onClick={() => setTab(t)}
               className={`flex-1 py-2.5 text-sm font-medium transition-colors relative ${tab === t ? "text-[#1A1410]" : "text-[#1A1410]/40 hover:text-[#1A1410]/60"}`}>
@@ -660,7 +660,7 @@ export default function Page() {
                 {MODES.map((m) => (
                   <button key={m.id} onClick={() => { setMode(m.id); setResult(null); setError(null); }}
                     className={`flex-shrink-0 snap-start flex flex-col items-center gap-1 px-3 py-2.5 rounded-2xl border-2 text-center transition-all min-w-[72px]
-                      ${mode === m.id ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#1A1410]" : "border-[#1A1410]/10 bg-[#DCCFB8] text-[#1A1410]/60 hover:border-[#1A1410]/20 hover:bg-[#1A1410]/5"}`}>
+                      ${mode === m.id ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#1A1410]" : "border-[#8B6B44]/30 bg-white text-[#1A1410]/60 hover:border-[#8B6B44]/50 hover:bg-[#8B6B44]/8"}`}>
                     <span className="text-xl">{m.icon}</span>
                     <span className="text-xs font-medium leading-tight whitespace-nowrap">{m.label}</span>
                   </button>
@@ -708,7 +708,7 @@ export default function Page() {
                           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                             isListening
                               ? "bg-red-500 text-[#1A1410] animate-pulse"
-                              : "bg-[#1A1410]/5 text-[#1A1410]/50 hover:bg-white/10"
+                              : "bg-[#8B6B44]/8 text-[#1A1410]/50 hover:bg-white/10"
                           }`}
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
@@ -723,8 +723,8 @@ export default function Page() {
                         onChange={(e) => setDesignPrompt(e.target.value)}
                         placeholder="np. nowoczesny salon z dużymi oknami, ciemne drewno, szare akcenty, rośliny..."
                         rows={4}
-                        className={`w-full rounded-xl border bg-[#DCCFB8] px-3 py-2.5 text-sm text-[#1A1410]/80 placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 resize-none transition-all ${
-                          isListening ? "border-red-500/50 focus:ring-red-500/20" : "border-[#1A1410]/10 focus:ring-[#1A1410]/15"
+                        className={`w-full rounded-xl border bg-white px-3 py-2.5 text-sm text-[#1A1410]/80 placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 resize-none transition-all ${
+                          isListening ? "border-red-500/50 focus:ring-red-500/20" : "border-[#8B6B44]/30 focus:ring-[#1A1410]/15"
                         }`}
                       />
                       <p className="text-xs text-[#1A1410]/40">Opisz styl, kolory, meble i nastrój który chcesz uzyskać. Możesz dyktować lub pisać.</p>
@@ -769,14 +769,14 @@ export default function Page() {
 
                 {/* Advanced options */}
                 {["staging", "inspirational", "remodel_kitchen", "remodel_bathroom"].includes(mode) && (
-                  <div className="border border-[#1A1410]/10 rounded-2xl overflow-hidden">
+                  <div className="border border-[#8B6B44]/30 rounded-2xl overflow-hidden">
                     <button onClick={() => setShowAdvanced((v) => !v)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-[#1A1410]/70 hover:bg-[#1A1410]/5 transition-colors">
+                      className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-[#1A1410]/70 hover:bg-[#8B6B44]/8 transition-colors">
                       <span>Opcje zaawansowane</span>
                       <span className={`transition-transform ${showAdvanced ? "rotate-180" : ""}`}>▾</span>
                     </button>
                     {showAdvanced && (
-                      <div className="px-4 pb-4 flex flex-col gap-4 border-t border-[#1A1410]/8 pt-4">
+                      <div className="px-4 pb-4 flex flex-col gap-4 border-t border-[#8B6B44]/25 pt-4">
                         <Select label="Schemat kolorów" value={colorScheme} onChange={setColorScheme} options={COLOR_SCHEMES} />
                         <Select label="Dekoracje sezonowe" value={specialityDecor} onChange={setSpecialityDecor} options={SPECIALITY_DECORS} />
                       </div>
@@ -797,7 +797,7 @@ export default function Page() {
                 {/* Generate */}
                 <button onClick={handleGenerate} disabled={!canGenerate}
                   className={`w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98]
-                    ${canGenerate ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a] hover:opacity-90 shadow-lg shadow-[#C9A96E]/25" : "bg-[#1A1410]/6 text-[#1A1410]/20 cursor-not-allowed"}`}>
+                    ${canGenerate ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a] hover:opacity-90 shadow-lg shadow-[#C9A96E]/25" : "bg-[#8B6B44]/10 text-[#1A1410]/20 cursor-not-allowed"}`}>
                   {isGenerating ? (
                     <span className="flex items-center justify-center gap-2">
                       <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
