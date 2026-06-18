@@ -262,8 +262,8 @@ export default function LandingPage() {
               </h2>
             </div>
 
-            <div className="overflow-x-auto -mx-2 px-2">
-            <div className="rounded-2xl border border-white/8 overflow-hidden min-w-[480px]">
+            {/* Desktop: 3-column table */}
+            <div className="hidden sm:block rounded-2xl border border-white/8 overflow-hidden">
               <div className="grid grid-cols-3 bg-[#111111]">
                 <div className="p-4 text-white/30 text-sm font-semibold" />
                 <div className="p-4 text-center text-white/40 text-sm font-semibold border-x border-white/6">Tradycyjny staging</div>
@@ -286,6 +286,31 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
+
+            {/* Mobile: stacked cards */}
+            <div className="sm:hidden flex flex-col gap-3">
+              {[
+                ["Koszt", "3 000 – 8 000 zł", "od 49 zł / mies."],
+                ["Czas realizacji", "2–3 tygodnie", "30 sekund"],
+                ["Liczba zdjęć", "Ograniczona", "Nielimitowana (Pro)"],
+                ["Zmiany stylów", "Nowe zlecenie = nowy koszt", "Kliknięcie"],
+                ["Ryzyko", "Logistyka, transport, zniszczenia", "Żadne"],
+                ["Dostępność", "W godzinach roboczych", "24/7, z każdego miejsca"],
+              ].map(([label, traditional, ours]) => (
+                <div key={label} className="rounded-xl border border-white/8 overflow-hidden">
+                  <div className="px-4 py-2 bg-[#111111] text-xs font-bold text-white/50 uppercase tracking-wider">{label}</div>
+                  <div className="grid grid-cols-2 divide-x divide-white/6">
+                    <div className="px-4 py-3 bg-[#0d0d0d]">
+                      <p className="text-[10px] text-white/30 font-semibold uppercase tracking-wide mb-1">Tradycyjny</p>
+                      <p className="text-sm text-white/40 line-through">{traditional}</p>
+                    </div>
+                    <div className="px-4 py-3 bg-[#0d0d0d]">
+                      <p className="text-[10px] text-[#C9A96E]/60 font-semibold uppercase tracking-wide mb-1">RoomStager</p>
+                      <p className="text-sm text-[#C9A96E] font-semibold">{ours}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
