@@ -78,5 +78,5 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(new URL("/?success=1", req.url));
+  return NextResponse.redirect(new URL("/app?success=1", req.url));
 }
