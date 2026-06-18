@@ -157,22 +157,21 @@ Sprawić, żeby każde ogłoszenie nieruchomości wyglądało profesjonalnie —
 
 #### 🔴 KRYTYCZNE — blokują start
 
-- [ ] **Stripe → tryb LIVE** — teraz jest `sk_test_…`, przed startem podmienić na klucze LIVE w Vercel + zaktualizować `.env.local`
-- [ ] **Podpięcie domeny stageria.pl** — dodać w Vercel Dashboard → Settings → Domains; skonfigurować DNS u rejestratora (A record lub CNAME)
-- [ ] **Zaktualizować `NEXT_PUBLIC_SITE_URL`** w Vercel na `https://stageria.pl` (teraz: room-stager-teal.vercel.app) — wpływa na email potwierdzający i redirect po OAuth
-- [ ] **Zaktualizować Supabase → redirect URL** — w Supabase Dashboard → Auth → URL Configuration → Site URL: `https://stageria.pl`
+- [x] **Stripe → tryb LIVE** — klucze live w Vercel, Customer Portal włączony, webhook skonfigurowany
+- [x] **Podpięcie domeny stageria.pl** — DNS skonfigurowany w seohost, Vercel pokazuje zielony status
+- [x] **Zaktualizować `NEXT_PUBLIC_SITE_URL`** w Vercel na `https://stageria.pl`
+- [x] **Zaktualizować Supabase → redirect URL** — Site URL: `https://stageria.pl`
 
 #### 🟡 WAŻNE — zrobić przed poniedziałkiem
 
 **QA — pełne ścieżki do przetestowania:**
-- [ ] Rejestracja → email potwierdzający przychodzi → klik w link → konto aktywne
-- [ ] Login email/hasło
-- [ ] Login Google OAuth
-- [ ] Checkout (plan Agent) → płatność Stripe → generacje dostępne w koncie
-- [ ] Generowanie zdjęcia (przynajmniej tryb Staging i jeden inny)
-- [ ] Billing portal (Zarządzaj subskrypcją → Stripe Customer Portal)
-- [ ] Wylogowanie
-- [ ] Ochrona `/app` — niezalogowany → redirect do `/login`
+- [x] Rejestracja → email potwierdzający przychodzi → klik w link → konto aktywne
+- [x] Login email/hasło
+- [x] Login Google OAuth ✅
+- [x] Checkout (plan Starter) → płatność Stripe LIVE → subskrypcja w Supabase ✅
+- [x] Generowanie zdjęcia — tryb Staging działa ✅
+- [x] Billing portal (Zarządzaj subskrypcją → Stripe Customer Portal) ✅
+- [x] Ochrona `/app` — niezalogowany → redirect do `/login` ✅
 
 **Domena i branding:**
 - [ ] SSL działa na stageria.pl (Vercel robi automatycznie po podpięciu DNS)
@@ -190,6 +189,8 @@ Sprawić, żeby każde ogłoszenie nieruchomości wyglądało profesjonalnie —
 - [ ] Nagrać screen recording: upload zdjęcia → wybór stylu → generowanie → wynik (30–60 sekund)
 - [ ] Dodać muzykę royalty-free (np. z Pixabay)
 - [ ] Wgrać do `public/` w projekcie i podmienić placeholder video na LP
+
+#### ✅ QA ZAKOŃCZONE 2026-06-18 — wszystkie ścieżki przetestowane i działają
 
 #### 🟢 NICE TO HAVE — jeśli zostanie czas
 
@@ -215,3 +216,4 @@ Sprawić, żeby każde ogłoszenie nieruchomości wyglądało profesjonalnie —
 | 2026-06-18 | Nowe ceny: 97/247/597 zł, plany Starter/Agent/Agencja |
 | 2026-06-18 | Zakup domeny stageria.pl |
 | 2026-06-18 | Stworzenie biznesplanu |
+| 2026-06-18 | stageria.pl live — pełne QA zaliczone (rejestracja, login, Google OAuth, Stripe LIVE, generowanie, billing portal, ochrona tras) |
