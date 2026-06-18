@@ -24,7 +24,7 @@ export default async function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F1EB]">
+    <div className="min-h-screen bg-[#E8D9C4]">
 
       {/* Header */}
       <header className="bg-white border-b border-[#1A1410]/8 px-6 py-4 flex items-center justify-between">

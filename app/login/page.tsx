@@ -36,7 +36,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F1EB] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#E8D9C4] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
 
         {/* Logo */}
@@ -60,7 +60,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#EDE8E0] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
+                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#DCCFB8] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
                 placeholder="ty@example.com"
               />
             </div>
@@ -71,7 +71,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#EDE8E0] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
+                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#DCCFB8] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
                 placeholder="••••••••"
               />
             </div>
@@ -97,7 +97,7 @@ export default function LoginPage() {
 
           <button
             onClick={handleGoogle}
-            className="w-full border border-[#1A1410]/12 rounded-xl py-2.5 text-sm font-medium text-[#1A1410]/70 hover:bg-[#1A1410]/5 hover:text-[#1A1410] bg-[#EDE8E0] transition-all flex items-center justify-center gap-2"
+            className="w-full border border-[#1A1410]/12 rounded-xl py-2.5 text-sm font-medium text-[#1A1410]/70 hover:bg-[#1A1410]/5 hover:text-[#1A1410] bg-[#DCCFB8] transition-all flex items-center justify-center gap-2"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/>

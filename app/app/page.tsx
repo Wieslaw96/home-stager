@@ -239,7 +239,7 @@ function UploadZone({ preview, onFile }: { preview: string | null; onFile: (f: F
       onDragLeave={() => setDragging(false)}
       onDrop={(e) => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files[0]; if (f) handle(f); }}
       className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed aspect-[4/3] transition-all cursor-pointer select-none overflow-hidden
-        ${dragging ? "border-[#C9A96E] bg-[#C9A96E]/5" : "border-[#1A1410]/12 bg-[#EDE8E0] hover:border-[#1A1410]/25 hover:bg-[#E5DED4]"}`}
+        ${dragging ? "border-[#C9A96E] bg-[#C9A96E]/5" : "border-[#1A1410]/12 bg-[#DCCFB8] hover:border-[#1A1410]/25 hover:bg-[#D5C8B0]"}`}
     >
       <input ref={ref} type="file" accept="image/*" capture="environment" className="hidden"
         onChange={(e) => { const f = e.target.files?.[0]; if (f) handle(f); }} />
@@ -272,7 +272,7 @@ function ResultPanel({ original, result, onReset }: { original: string | null; r
         <div className="md:hidden flex gap-2 p-1 bg-[#1A1410]/5 rounded-xl">
           {(["after", "before"] as const).map((t) => (
             <button key={t} onClick={() => setTab(t)}
-              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${tab === t ? "bg-[#DDD6CC] shadow text-[#1A1410]" : "text-[#1A1410]/40 hover:text-[#1A1410]/70"}`}>
+              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${tab === t ? "bg-[#CCBFA6] shadow text-[#1A1410]" : "text-[#1A1410]/40 hover:text-[#1A1410]/70"}`}>
               {t === "after" ? "✨ Po" : "📷 Przed"}
             </button>
           ))}
@@ -377,7 +377,7 @@ function Select({ label, value, onChange, options }: {
     <div className="flex flex-col gap-1.5">
       <label className="text-sm font-semibold text-[#1A1410]/70">{label}</label>
       <select value={value} onChange={(e) => onChange(e.target.value)}
-        className="w-full border border-[#1A1410]/10 rounded-xl px-3 py-2.5 text-sm text-[#1A1410]/80 bg-[#EDE8E0] focus:outline-none focus:ring-2 focus:ring-[#1A1410]/15 [color-scheme:light]">
+        className="w-full border border-[#1A1410]/10 rounded-xl px-3 py-2.5 text-sm text-[#1A1410]/80 bg-[#DCCFB8] focus:outline-none focus:ring-2 focus:ring-[#1A1410]/15 [color-scheme:light]">
         {options.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
       </select>
     </div>
@@ -416,7 +416,7 @@ function ColorInput({ label, value, onChange }: { label: string; value: string; 
       </div>
       <div className="flex gap-3 items-center mt-1">
         <input type="color" value={value} onChange={(e) => onChange(e.target.value)}
-          className="w-9 h-9 rounded-lg border border-[#1A1410]/10 cursor-pointer p-0.5 bg-[#EDE8E0]" />
+          className="w-9 h-9 rounded-lg border border-[#1A1410]/10 cursor-pointer p-0.5 bg-[#DCCFB8]" />
         <span className="font-mono text-xs text-[#1A1410]/50">Niestandardowy kolor</span>
         <span className="font-mono text-sm text-[#1A1410]/70 bg-[#1A1410]/6 px-2 py-1 rounded-lg ml-auto">{value.toUpperCase()}</span>
       </div>
@@ -608,7 +608,7 @@ export default function Page() {
   const canGenerate = isGenerating ? false : currentMode.needsImage ? !!imageBase64 : true;
 
   return (
-    <div className="min-h-svh bg-[#F5F1EB]">
+    <div className="min-h-svh bg-[#E8D9C4]">
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white border-b border-[#1A1410]/8 backdrop-blur-md">
         <div className="px-4 py-3 flex items-center gap-3">
@@ -660,7 +660,7 @@ export default function Page() {
                 {MODES.map((m) => (
                   <button key={m.id} onClick={() => { setMode(m.id); setResult(null); setError(null); }}
                     className={`flex-shrink-0 snap-start flex flex-col items-center gap-1 px-3 py-2.5 rounded-2xl border-2 text-center transition-all min-w-[72px]
-                      ${mode === m.id ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#1A1410]" : "border-[#1A1410]/10 bg-[#EDE8E0] text-[#1A1410]/60 hover:border-[#1A1410]/20 hover:bg-[#1A1410]/5"}`}>
+                      ${mode === m.id ? "border-[#C9A96E] bg-[#C9A96E]/10 text-[#1A1410]" : "border-[#1A1410]/10 bg-[#DCCFB8] text-[#1A1410]/60 hover:border-[#1A1410]/20 hover:bg-[#1A1410]/5"}`}>
                     <span className="text-xl">{m.icon}</span>
                     <span className="text-xs font-medium leading-tight whitespace-nowrap">{m.label}</span>
                   </button>
@@ -723,7 +723,7 @@ export default function Page() {
                         onChange={(e) => setDesignPrompt(e.target.value)}
                         placeholder="np. nowoczesny salon z dużymi oknami, ciemne drewno, szare akcenty, rośliny..."
                         rows={4}
-                        className={`w-full rounded-xl border bg-[#EDE8E0] px-3 py-2.5 text-sm text-[#1A1410]/80 placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 resize-none transition-all ${
+                        className={`w-full rounded-xl border bg-[#DCCFB8] px-3 py-2.5 text-sm text-[#1A1410]/80 placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 resize-none transition-all ${
                           isListening ? "border-red-500/50 focus:ring-red-500/20" : "border-[#1A1410]/10 focus:ring-[#1A1410]/15"
                         }`}
                       />

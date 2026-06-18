@@ -31,7 +31,7 @@ export default function RegisterPage() {
 
   if (done) {
     return (
-      <div className="min-h-screen bg-[#F5F1EB] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#E8D9C4] flex items-center justify-center p-4">
         <div className="w-full max-w-sm bg-white rounded-2xl border border-[#1A1410]/10 p-8 text-center">
           <div className="text-4xl mb-4">📧</div>
           <h2 className="text-xl font-bold text-[#1A1410] mb-2">Sprawdź swoją skrzynkę</h2>
@@ -45,7 +45,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F1EB] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#E8D9C4] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
 
         {/* Logo */}
@@ -69,7 +69,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#EDE8E0] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
+                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#DCCFB8] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
                 placeholder="ty@example.com"
               />
             </div>
@@ -81,7 +81,7 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#EDE8E0] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
+                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#DCCFB8] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
                 placeholder="min. 6 znaków"
               />
             </div>
