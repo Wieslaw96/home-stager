@@ -31,8 +31,8 @@ export default function RegisterPage() {
 
   if (done) {
     return (
-      <div className="min-h-screen bg-[#141412] flex items-center justify-center p-4">
-        <div className="w-full max-w-sm bg-[#1E1E1B] rounded-2xl border border-white/8 p-8 text-center">
+      <div className="min-h-screen bg-[#1C1C18] flex items-center justify-center p-4">
+        <div className="w-full max-w-sm bg-[#242420] rounded-2xl border border-white/8 p-8 text-center">
           <div className="text-4xl mb-4">📧</div>
           <h2 className="text-xl font-bold text-[#F0EDE8] mb-2">Sprawdź swoją skrzynkę</h2>
           <p className="text-sm text-[#F0EDE8]/50">
@@ -45,7 +45,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#141412] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#1C1C18] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
 
         {/* Logo */}
@@ -54,7 +54,7 @@ export default function RegisterPage() {
           <span className="font-bold text-lg text-[#F0EDE8] tracking-tight">RoomStager</span>
         </Link>
 
-        <div className="bg-[#1E1E1B] rounded-2xl border border-white/8 p-8">
+        <div className="bg-[#242420] rounded-2xl border border-white/8 p-8">
           <h1 className="text-2xl font-bold text-[#F0EDE8] mb-1">Utwórz konto</h1>
           <p className="text-sm text-[#F0EDE8]/50 mb-6">
             Masz już konto?{" "}
@@ -69,7 +69,7 @@ export default function RegisterPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#252521] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#2C2C27] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
                 placeholder="ty@example.com"
               />
             </div>
@@ -81,7 +81,7 @@ export default function RegisterPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#252521] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#2C2C27] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
                 placeholder="min. 6 znaków"
               />
             </div>

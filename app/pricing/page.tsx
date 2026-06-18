@@ -24,10 +24,10 @@ export default async function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#141412]">
+    <div className="min-h-screen bg-[#1C1C18]">
 
       {/* Header */}
-      <header className="bg-[#1E1E1B] border-b border-white/6 px-6 py-4 flex items-center justify-between">
+      <header className="bg-[#242420] border-b border-white/6 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
           <span className="font-bold text-[#F0EDE8] text-lg tracking-tight">RoomStager</span>
@@ -71,7 +71,7 @@ export default async function PricingPage() {
                 className={`rounded-2xl border-2 p-6 flex flex-col transition-all ${
                   isGrowth
                     ? "border-[#C9A96E]/40 bg-gradient-to-b from-[#C9A96E]/10 to-[#1E1E1B] shadow-xl shadow-[#C9A96E]/10"
-                    : "border-white/8 bg-[#1E1E1B]"
+                    : "border-white/8 bg-[#242420]"
                 }`}
               >
                 {isGrowth && (
