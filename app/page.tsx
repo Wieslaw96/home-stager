@@ -621,6 +621,8 @@ export default function LandingPage() {
               <Link href="/pricing" className="hover:text-white/60 transition-colors">Cennik</Link>
               <Link href="/login" className="hover:text-white/60 transition-colors">Zaloguj się</Link>
               <Link href="/register" className="hover:text-white/60 transition-colors">Zarejestruj się</Link>
+              <Link href="/regulamin" className="hover:text-white/60 transition-colors">Regulamin</Link>
+              <Link href="/polityka-prywatnosci" className="hover:text-white/60 transition-colors">Polityka prywatności</Link>
             </div>
             <p className="text-white/20 text-xs">© 2026 Stageria. Wszelkie prawa zastrzeżone.</p>
           </div>
