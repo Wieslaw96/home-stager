@@ -153,7 +153,7 @@ export default function LandingPage() {
               <span className="font-display font-bold text-lg tracking-tight">RoomStager</span>
             </Link>
             <div className="flex items-center gap-3">
-              <Link href="/login" className="text-sm text-white/60 hover:text-white transition-colors px-3 py-1.5 rounded-lg">
+              <Link href="/login" className="hidden sm:block text-sm text-white/60 hover:text-white transition-colors px-3 py-1.5 rounded-lg">
                 Zaloguj się
               </Link>
               <GoldButton href="/pricing">Sprawdź plany</GoldButton>
@@ -262,7 +262,8 @@ export default function LandingPage() {
               </h2>
             </div>
 
-            <div className="rounded-2xl border border-white/8 overflow-hidden">
+            <div className="overflow-x-auto -mx-2 px-2">
+            <div className="rounded-2xl border border-white/8 overflow-hidden min-w-[480px]">
               <div className="grid grid-cols-3 bg-[#111111]">
                 <div className="p-4 text-white/30 text-sm font-semibold" />
                 <div className="p-4 text-center text-white/40 text-sm font-semibold border-x border-white/6">Tradycyjny staging</div>
@@ -284,6 +285,7 @@ export default function LandingPage() {
                   <div className="p-4 text-center text-sm text-[#C9A96E] font-semibold">{ours}</div>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </section>
