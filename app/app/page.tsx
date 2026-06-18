@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 import { createClient } from "@/lib/supabase/client";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -612,11 +613,7 @@ export default function Page() {
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white border-b border-[#8B6B44]/25 backdrop-blur-md">
         <div className="px-4 py-3 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
-          <div>
-            <h1 className="font-bold text-[#1A1410] leading-none">RoomStager</h1>
-            <p className="text-xs text-[#1A1410]/50">AI Virtual Staging</p>
-          </div>
+          <Logo dark size="sm" />
           <div className="ml-auto flex items-center gap-2">
             {userPlan && (
               <div className="hidden sm:flex items-center gap-2 text-xs text-[#1A1410]/50">

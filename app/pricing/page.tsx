@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { PLANS } from "@/lib/stripe";
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 
 const FEATURES = {
   starter: ["20 generacji miesięcznie", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników"],
@@ -28,10 +29,7 @@ export default async function PricingPage() {
 
       {/* Header */}
       <header className="bg-white border-b border-[#8B6B44]/25 px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
-          <span className="font-bold text-[#1A1410] text-lg tracking-tight">RoomStager</span>
-        </Link>
+        <Logo dark />
         <div className="flex items-center gap-3">
           {user ? (
             <Link href="/app" className="text-sm text-[#C9A96E] hover:text-[#E8D5A3] transition-colors">

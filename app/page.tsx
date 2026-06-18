@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { Logo } from "@/components/Logo";
 
 export const metadata = {
-  title: "RoomStager — Wirtualny Staging AI dla Profesjonalistów",
+  title: "Stageria — Wirtualny Staging AI dla Profesjonalistów",
   description:
     "Zamień puste pokoje w zachwycające wnętrza w 30 sekund. Profesjonalny wirtualny staging AI dla agentów nieruchomości i deweloperów.",
 };
@@ -90,7 +91,7 @@ const FAQS = [
     a: "Tak. Wyniki mają jakość profesjonalnych fotografii i spełniają wymagania wszystkich portali nieruchomości.",
   },
   {
-    q: "Czy mogę użyć RoomStager dla każdego rodzaju nieruchomości?",
+    q: "Czy mogę użyć Stagerii dla każdego rodzaju nieruchomości?",
     a: "Tak — obsługujemy 30 typów pomieszczeń: mieszkania, domy, biura, powierzchnie komercyjne, ogrody i elewacje.",
   },
 ];
@@ -148,10 +149,7 @@ export default function LandingPage() {
         {/* ── NAV ───────────────────────────────────────────────────────── */}
         <nav className="sticky top-0 z-50 border-b border-white/5 bg-[#080808]/90 backdrop-blur-md">
           <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
-              <span className="font-display font-bold text-lg tracking-tight">RoomStager</span>
-            </Link>
+            <Logo />
             <div className="flex items-center gap-3">
               <Link href="/login" className="hidden sm:block text-sm text-white/60 hover:text-white transition-colors px-3 py-1.5 rounded-lg">
                 Zaloguj się
@@ -258,7 +256,7 @@ export default function LandingPage() {
             <div className="text-center mb-10">
               <SectionTag>Rozwiązanie</SectionTag>
               <h2 className="font-display text-3xl md:text-5xl font-bold">
-                Stary sposób vs. <span className="gold-gradient">RoomStager</span>
+                Stary sposób vs. <span className="gold-gradient">Stageria</span>
               </h2>
             </div>
 
@@ -268,7 +266,7 @@ export default function LandingPage() {
                 <div className="p-4 text-white/30 text-sm font-semibold" />
                 <div className="p-4 text-center text-white/40 text-sm font-semibold border-x border-white/6">Tradycyjny staging</div>
                 <div className="p-4 text-center text-sm font-semibold">
-                  <span className="gold-gradient font-bold">RoomStager</span>
+                  <span className="gold-gradient font-bold">Stageria</span>
                 </div>
               </div>
               {[
@@ -305,7 +303,7 @@ export default function LandingPage() {
                       <p className="text-sm text-white/40 line-through">{traditional}</p>
                     </div>
                     <div className="px-4 py-3 bg-[#0d0d0d]">
-                      <p className="text-[10px] text-[#C9A96E]/60 font-semibold uppercase tracking-wide mb-1">RoomStager</p>
+                      <p className="text-[10px] text-[#C9A96E]/60 font-semibold uppercase tracking-wide mb-1">Stageria</p>
                       <p className="text-sm text-[#C9A96E] font-semibold">{ours}</p>
                     </div>
                   </div>
@@ -324,7 +322,7 @@ export default function LandingPage() {
                 Różnica, którą <span className="gold-gradient">widzą kupujący</span>
               </h2>
               <p className="text-white/50 text-lg max-w-xl mx-auto">
-                Każde zdjęcie poniżej zostało wygenerowane przez RoomStager w mniej niż 40 sekund.
+                Każde zdjęcie poniżej zostało wygenerowane przez Stagerię w mniej niż 40 sekund.
               </p>
             </div>
 
@@ -531,7 +529,7 @@ export default function LandingPage() {
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { text: "RoomStager skrócił czas przygotowania ogłoszenia z 2 tygodni do jednego dnia. Kupujący pytają o mieszkania, które wyglądają jak z magazynu.", name: "Marek K.", role: "Agent nieruchomości, Warszawa" },
+                { text: "Stageria skróciła czas przygotowania ogłoszenia z 2 tygodni do jednego dnia. Kupujący pytają o mieszkania, które wyglądają jak z magazynu.", name: "Marek K.", role: "Agent nieruchomości, Warszawa" },
                 { text: "Używam tego narzędzia przy każdym flipie. Zwrot inwestycji jest natychmiastowy — staging za 99 zł sprzedaje mieszkanie o 10 000 zł drożej.", name: "Joanna W.", role: "Inwestorka, Kraków" },
                 { text: "Moi klienci są zachwyceni, że mogę im pokazać jak będzie wyglądało mieszkanie jeszcze przed remontem. To przewaga, której nie ma moja konkurencja.", name: "Tomasz P.", role: "Pośrednik, Wrocław" },
               ].map((t) => (
@@ -604,16 +602,13 @@ export default function LandingPage() {
         {/* ── FOOTER ────────────────────────────────────────────────────── */}
         <footer className="border-t border-white/6 px-6 py-10">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-xs">🏠</div>
-              <span className="font-display font-bold text-base">RoomStager</span>
-            </div>
+            <Logo size="sm" />
             <div className="flex items-center gap-6 text-xs text-white/30">
               <Link href="/pricing" className="hover:text-white/60 transition-colors">Cennik</Link>
               <Link href="/login" className="hover:text-white/60 transition-colors">Zaloguj się</Link>
               <Link href="/register" className="hover:text-white/60 transition-colors">Zarejestruj się</Link>
             </div>
-            <p className="text-white/20 text-xs">© 2026 RoomStager. Wszelkie prawa zastrzeżone.</p>
+            <p className="text-white/20 text-xs">© 2026 Stageria. Wszelkie prawa zastrzeżone.</p>
           </div>
         </footer>
 
