@@ -152,8 +152,52 @@ Sprawić, żeby każde ogłoszenie nieruchomości wyglądało profesjonalnie —
 
 ## Plan Tygodniowy
 
-### Tydzień 1 (2026-06-18 → 2026-06-22)
-**Do ustalenia na początku tygodnia.**
+### Tydzień 1 (2026-06-18 → 2026-06-22) — PRE-LAUNCH
+**Cel: wszystko gotowe do startu w poniedziałek 2026-06-23**
+
+#### 🔴 KRYTYCZNE — blokują start
+
+- [ ] **Stripe → tryb LIVE** — teraz jest `sk_test_…`, przed startem podmienić na klucze LIVE w Vercel + zaktualizować `.env.local`
+- [ ] **Podpięcie domeny stageria.pl** — dodać w Vercel Dashboard → Settings → Domains; skonfigurować DNS u rejestratora (A record lub CNAME)
+- [ ] **Zaktualizować `NEXT_PUBLIC_SITE_URL`** w Vercel na `https://stageria.pl` (teraz: room-stager-teal.vercel.app) — wpływa na email potwierdzający i redirect po OAuth
+- [ ] **Zaktualizować Supabase → redirect URL** — w Supabase Dashboard → Auth → URL Configuration → Site URL: `https://stageria.pl`
+
+#### 🟡 WAŻNE — zrobić przed poniedziałkiem
+
+**QA — pełne ścieżki do przetestowania:**
+- [ ] Rejestracja → email potwierdzający przychodzi → klik w link → konto aktywne
+- [ ] Login email/hasło
+- [ ] Login Google OAuth
+- [ ] Checkout (plan Agent) → płatność Stripe → generacje dostępne w koncie
+- [ ] Generowanie zdjęcia (przynajmniej tryb Staging i jeden inny)
+- [ ] Billing portal (Zarządzaj subskrypcją → Stripe Customer Portal)
+- [ ] Wylogowanie
+- [ ] Ochrona `/app` — niezalogowany → redirect do `/login`
+
+**Domena i branding:**
+- [ ] SSL działa na stageria.pl (Vercel robi automatycznie po podpięciu DNS)
+- [ ] stageria.pl → otwiera landing page (nie room-stager-teal.vercel.app)
+- [ ] Sprawdzić czy logo Stageria wyświetla się poprawnie na mobile
+
+**Media społecznościowe — założyć konta:**
+- [ ] **Instagram** — @stageria.pl lub @stageria_ai (sprawdzić dostępność)
+- [ ] **TikTok** — @stageria
+- [ ] **Facebook** — fanpage "Stageria" (potrzebny do Meta Ads)
+- [ ] **LinkedIn** — profil firmowy "Stageria"
+- [ ] We wszystkich: dodać link stageria.pl + bio "AI Virtual Staging dla agentów nieruchomości"
+
+**Film na landing page:**
+- [ ] Nagrać screen recording: upload zdjęcia → wybór stylu → generowanie → wynik (30–60 sekund)
+- [ ] Dodać muzykę royalty-free (np. z Pixabay)
+- [ ] Wgrać do `public/` w projekcie i podmienić placeholder video na LP
+
+#### 🟢 NICE TO HAVE — jeśli zostanie czas
+
+- [ ] Google Analytics 4 — dodać tag do `layout.tsx` (ważne dla śledzenia konwersji)
+- [ ] Meta Pixel — dodać do `layout.tsx` (kluczowe dla Meta Ads)
+- [ ] Supabase email templates — zmienić branding z domyślnych na "Stageria"
+- [ ] Regulamin + Polityka Prywatności — wymagane RODO (minimum 1 strona każda)
+- [ ] Favicon — sprawdzić czy jest ustawiony w `layout.tsx`
 
 ---
 
