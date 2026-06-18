@@ -197,8 +197,11 @@ Sprawić, żeby każde ogłoszenie nieruchomości wyglądało profesjonalnie —
 - [ ] Google Analytics 4 — dodać tag do `layout.tsx` (ważne dla śledzenia konwersji)
 - [ ] Meta Pixel — dodać do `layout.tsx` (kluczowe dla Meta Ads)
 - [ ] Supabase email templates — zmienić branding z domyślnych na "Stageria"
-- [ ] Regulamin + Polityka Prywatności — wymagane RODO (minimum 1 strona każda)
+- [x] Regulamin — stageria.pl/regulamin ✅
+- [x] Polityka Prywatności — stageria.pl/polityka-prywatnosci ✅
 - [ ] Favicon — sprawdzić czy jest ustawiony w `layout.tsx`
+- [ ] Film na landing page
+- [ ] Konta social media (IG, TikTok, FB, LinkedIn)
 
 ---
 
@@ -217,3 +220,4 @@ Sprawić, żeby każde ogłoszenie nieruchomości wyglądało profesjonalnie —
 | 2026-06-18 | Zakup domeny stageria.pl |
 | 2026-06-18 | Stworzenie biznesplanu |
 | 2026-06-18 | stageria.pl live — pełne QA zaliczone (rejestracja, login, Google OAuth, Stripe LIVE, generowanie, billing portal, ochrona tras) |
+| 2026-06-18 | Regulamin i Polityka Prywatności (RODO) dodane i publicznie dostępne |
