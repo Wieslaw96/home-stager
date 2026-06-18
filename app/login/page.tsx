@@ -36,42 +36,42 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#2A2A22] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#F5F1EB] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
 
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center gap-2.5 mb-8">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
-          <span className="font-bold text-lg text-[#F0EDE8] tracking-tight">RoomStager</span>
+          <span className="font-bold text-lg text-[#1A1410] tracking-tight">RoomStager</span>
         </Link>
 
-        <div className="bg-[#333329] rounded-2xl border border-white/8 p-8">
-          <h1 className="text-2xl font-bold text-[#F0EDE8] mb-1">Zaloguj się</h1>
-          <p className="text-sm text-[#F0EDE8]/50 mb-6">
+        <div className="bg-white rounded-2xl border border-[#1A1410]/10 p-8">
+          <h1 className="text-2xl font-bold text-[#1A1410] mb-1">Zaloguj się</h1>
+          <p className="text-sm text-[#1A1410]/50 mb-6">
             Nie masz konta?{" "}
             <Link href="/register" className="text-[#C9A96E] hover:text-[#E8D5A3] transition-colors">Zarejestruj się</Link>
           </p>
 
           <form onSubmit={handleLogin} className="flex flex-col gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#F0EDE8]/70 mb-1.5">E-mail</label>
+              <label className="block text-sm font-medium text-[#1A1410]/70 mb-1.5">E-mail</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#3C3C30] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
+                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#EDE8E0] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
                 placeholder="ty@example.com"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#F0EDE8]/70 mb-1.5">Hasło</label>
+              <label className="block text-sm font-medium text-[#1A1410]/70 mb-1.5">Hasło</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#3C3C30] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
+                className="w-full border border-[#1A1410]/12 rounded-xl px-3 py-2.5 text-sm bg-[#EDE8E0] text-[#1A1410] placeholder:text-[#1A1410]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/60 focus:border-[#C9A96E]/40 transition-all [color-scheme:light]"
                 placeholder="••••••••"
               />
             </div>
@@ -90,14 +90,14 @@ export default function LoginPage() {
           </form>
 
           <div className="my-5 flex items-center gap-3">
-            <div className="flex-1 h-px bg-white/6" />
-            <span className="text-xs text-[#F0EDE8]/30">lub</span>
-            <div className="flex-1 h-px bg-white/6" />
+            <div className="flex-1 h-px bg-[#1A1410]/6" />
+            <span className="text-xs text-[#1A1410]/30">lub</span>
+            <div className="flex-1 h-px bg-[#1A1410]/6" />
           </div>
 
           <button
             onClick={handleGoogle}
-            className="w-full border border-white/10 rounded-xl py-2.5 text-sm font-medium text-[#F0EDE8]/70 hover:bg-white/5 hover:text-[#F0EDE8] bg-[#3C3C30] transition-all flex items-center justify-center gap-2"
+            className="w-full border border-[#1A1410]/12 rounded-xl py-2.5 text-sm font-medium text-[#1A1410]/70 hover:bg-[#1A1410]/5 hover:text-[#1A1410] bg-[#EDE8E0] transition-all flex items-center justify-center gap-2"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/>

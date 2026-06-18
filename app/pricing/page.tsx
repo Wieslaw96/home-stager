@@ -24,13 +24,13 @@ export default async function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#2A2A22]">
+    <div className="min-h-screen bg-[#F5F1EB]">
 
       {/* Header */}
-      <header className="bg-[#333329] border-b border-white/6 px-6 py-4 flex items-center justify-between">
+      <header className="bg-white border-b border-[#1A1410]/8 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
-          <span className="font-bold text-[#F0EDE8] text-lg tracking-tight">RoomStager</span>
+          <span className="font-bold text-[#1A1410] text-lg tracking-tight">RoomStager</span>
         </Link>
         <div className="flex items-center gap-3">
           {user ? (
@@ -39,7 +39,7 @@ export default async function PricingPage() {
             </Link>
           ) : (
             <>
-              <Link href="/login" className="text-sm text-[#F0EDE8]/60 hover:text-[#F0EDE8] transition-colors">
+              <Link href="/login" className="text-sm text-[#1A1410]/60 hover:text-[#1A1410] transition-colors">
                 Zaloguj się
               </Link>
               <Link
@@ -55,8 +55,8 @@ export default async function PricingPage() {
 
       <main className="max-w-5xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-[#F0EDE8] mb-3">Wybierz plan</h1>
-          <p className="text-[#F0EDE8]/50 text-lg">Transformuj wnętrza z pomocą AI. Anuluj w dowolnym momencie.</p>
+          <h1 className="text-4xl font-bold text-[#1A1410] mb-3">Wybierz plan</h1>
+          <p className="text-[#1A1410]/50 text-lg">Transformuj wnętrza z pomocą AI. Anuluj w dowolnym momencie.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -70,8 +70,8 @@ export default async function PricingPage() {
                 key={key}
                 className={`rounded-2xl border-2 p-6 flex flex-col transition-all ${
                   isGrowth
-                    ? "border-[#C9A96E]/40 bg-gradient-to-b from-[#C9A96E]/10 to-[#1E1E1B] shadow-xl shadow-[#C9A96E]/10"
-                    : "border-white/8 bg-[#333329]"
+                    ? "border-[#C9A96E]/40 bg-gradient-to-b from-[#C9A96E]/15 to-[#FFF9F0] shadow-xl shadow-[#C9A96E]/10"
+                    : "border-[#1A1410]/10 bg-white"
                 }`}
               >
                 {isGrowth && (
@@ -82,15 +82,15 @@ export default async function PricingPage() {
                   </div>
                 )}
 
-                <h2 className="text-xl font-bold text-[#F0EDE8]">{plan.name}</h2>
+                <h2 className="text-xl font-bold text-[#1A1410]">{plan.name}</h2>
                 <div className="mt-2 mb-4">
-                  <span className="text-4xl font-bold text-[#F0EDE8]">{plan.amount / 100} zł</span>
-                  <span className="text-[#F0EDE8]/40 text-sm"> / miesiąc</span>
+                  <span className="text-4xl font-bold text-[#1A1410]">{plan.amount / 100} zł</span>
+                  <span className="text-[#1A1410]/40 text-sm"> / miesiąc</span>
                 </div>
 
                 <ul className="flex flex-col gap-2 mb-6 flex-1">
                   {FEATURES[key].map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-[#F0EDE8]/60">
+                    <li key={f} className="flex items-start gap-2 text-sm text-[#1A1410]/60">
                       <span className="text-[#C9A96E] mt-0.5 flex-shrink-0">✓</span>
                       {f}
                     </li>
@@ -110,7 +110,7 @@ export default async function PricingPage() {
                       className={`w-full rounded-xl py-2.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98] ${
                         isGrowth
                           ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
-                          : "bg-white/8 text-[#F0EDE8] hover:bg-white/12 border border-white/10"
+                          : "bg-[#1A1410]/8 text-[#1A1410] hover:bg-[#1A1410]/12 border border-white/10"
                       }`}
                     >
                       {user ? "Wybierz plan" : "Zacznij teraz"}
@@ -122,7 +122,7 @@ export default async function PricingPage() {
           })}
         </div>
 
-        <p className="text-center text-[#F0EDE8]/25 text-xs mt-8">
+        <p className="text-center text-[#1A1410]/25 text-xs mt-8">
           Anuluj w dowolnym momencie. Bez ukrytych opłat. Faktura VAT w cenie.
         </p>
       </main>
