@@ -36,7 +36,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1C1C18] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#2A2A22] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
 
         {/* Logo */}
@@ -45,7 +45,7 @@ export default function LoginPage() {
           <span className="font-bold text-lg text-[#F0EDE8] tracking-tight">RoomStager</span>
         </Link>
 
-        <div className="bg-[#242420] rounded-2xl border border-white/8 p-8">
+        <div className="bg-[#333329] rounded-2xl border border-white/8 p-8">
           <h1 className="text-2xl font-bold text-[#F0EDE8] mb-1">Zaloguj się</h1>
           <p className="text-sm text-[#F0EDE8]/50 mb-6">
             Nie masz konta?{" "}
@@ -60,7 +60,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#2C2C27] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#3C3C30] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
                 placeholder="ty@example.com"
               />
             </div>
@@ -71,7 +71,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#2C2C27] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
+                className="w-full border border-white/10 rounded-xl px-3 py-2.5 text-sm bg-[#3C3C30] text-[#F0EDE8] placeholder:text-[#F0EDE8]/30 focus:outline-none focus:ring-2 focus:ring-[#C9A96E]/40 focus:border-[#C9A96E]/40 transition-all [color-scheme:dark]"
                 placeholder="••••••••"
               />
             </div>
@@ -97,7 +97,7 @@ export default function LoginPage() {
 
           <button
             onClick={handleGoogle}
-            className="w-full border border-white/10 rounded-xl py-2.5 text-sm font-medium text-[#F0EDE8]/70 hover:bg-white/5 hover:text-[#F0EDE8] bg-[#2C2C27] transition-all flex items-center justify-center gap-2"
+            className="w-full border border-white/10 rounded-xl py-2.5 text-sm font-medium text-[#F0EDE8]/70 hover:bg-white/5 hover:text-[#F0EDE8] bg-[#3C3C30] transition-all flex items-center justify-center gap-2"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/>
