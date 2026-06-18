@@ -4,9 +4,39 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 
 const FEATURES = {
-  starter: ["20 generacji miesięcznie", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników"],
-  growth: ["60 generacji miesięcznie", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników", "Priorytetowe wsparcie"],
-  pro: ["Nielimitowane generacje", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników", "Priorytetowe wsparcie", "Dostęp do nowych funkcji"],
+  starter: [
+    "20 generacji miesięcznie (~4 ogłoszenia)",
+    "Wszystkie style wnętrz",
+    "Wszystkie typy pomieszczeń",
+    "Pobieranie wyników",
+  ],
+  agent: [
+    "80 generacji miesięcznie (~16 ogłoszeń)",
+    "Wszystkie style wnętrz",
+    "Wszystkie typy pomieszczeń",
+    "Pobieranie wyników",
+    "Priorytetowa kolejka generowania",
+  ],
+  agencja: [
+    "300 generacji miesięcznie (~60 ogłoszeń)",
+    "3 konta w jednym planie",
+    "Wszystkie style wnętrz",
+    "Wszystkie typy pomieszczeń",
+    "Pobieranie wyników",
+    "Priorytetowe wsparcie",
+  ],
+};
+
+const PER_GEN: Record<string, string> = {
+  starter: "4,85 zł / zdjęcie",
+  agent: "3,09 zł / zdjęcie",
+  agencja: "1,99 zł / zdjęcie",
+};
+
+const SAVING: Record<string, string | null> = {
+  starter: null,
+  agent: "36% taniej niż Starter",
+  agencja: "59% taniej niż Starter",
 };
 
 export default async function PricingPage() {
@@ -54,25 +84,25 @@ export default async function PricingPage() {
       <main className="max-w-5xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-[#1A1410] mb-3">Wybierz plan</h1>
-          <p className="text-[#1A1410]/50 text-lg">Transformuj wnętrza z pomocą AI. Anuluj w dowolnym momencie.</p>
+          <p className="text-[#1A1410]/50 text-lg">Profesjonalny staging AI zamiast 3 000 zł za tradycyjny. Anuluj w dowolnym momencie.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {(["starter", "growth", "pro"] as const).map((key) => {
+        <div className="grid md:grid-cols-3 gap-6 items-start">
+          {(["starter", "agent", "agencja"] as const).map((key) => {
             const plan = PLANS[key];
             const isActive = activePlan === key;
-            const isGrowth = key === "growth";
+            const isAgent = key === "agent";
 
             return (
               <div
                 key={key}
                 className={`rounded-2xl border-2 p-6 flex flex-col transition-all ${
-                  isGrowth
-                    ? "border-[#C9A96E]/40 bg-gradient-to-b from-[#C9A96E]/15 to-[#FFF9F0] shadow-xl shadow-[#C9A96E]/10"
+                  isAgent
+                    ? "border-[#C9A96E]/60 bg-gradient-to-b from-[#C9A96E]/15 to-[#FFF9F0] shadow-xl shadow-[#C9A96E]/15 scale-[1.03]"
                     : "border-[#8B6B44]/30 bg-white"
                 }`}
               >
-                {isGrowth && (
+                {isAgent && (
                   <div className="text-center mb-3">
                     <span className="bg-[#C9A96E] text-[#0a0a0a] text-xs font-black px-3 py-1 rounded-full tracking-wide uppercase">
                       Najpopularniejszy
@@ -81,9 +111,20 @@ export default async function PricingPage() {
                 )}
 
                 <h2 className="text-xl font-bold text-[#1A1410]">{plan.name}</h2>
-                <div className="mt-2 mb-4">
-                  <span className="text-4xl font-bold text-[#1A1410]">{plan.amount / 100} zł</span>
+
+                <div className="mt-2 mb-1">
+                  <span className="text-4xl font-bold text-[#1A1410]">{(plan.amount / 100).toLocaleString("pl-PL")} zł</span>
                   <span className="text-[#1A1410]/40 text-sm"> / miesiąc</span>
+                </div>
+
+                {/* Per-gen price */}
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="text-xs text-[#1A1410]/50">{PER_GEN[key]}</span>
+                  {SAVING[key] && (
+                    <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                      ↓ {SAVING[key]}
+                    </span>
+                  )}
                 </div>
 
                 <ul className="flex flex-col gap-2 mb-6 flex-1">
@@ -106,9 +147,9 @@ export default async function PricingPage() {
                     <input type="hidden" name="plan" value={key} />
                     <button
                       className={`w-full rounded-xl py-2.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98] ${
-                        isGrowth
+                        isAgent
                           ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
-                          : "bg-[#1A1410]/8 text-[#1A1410] hover:bg-[#1A1410]/12 border border-white/10"
+                          : "bg-[#1A1410]/8 text-[#1A1410] hover:bg-[#1A1410]/12 border border-[#8B6B44]/20"
                       }`}
                     >
                       {user ? "Wybierz plan" : "Zacznij teraz"}
@@ -120,7 +161,7 @@ export default async function PricingPage() {
           })}
         </div>
 
-        <p className="text-center text-[#1A1410]/25 text-xs mt-8">
+        <p className="text-center text-[#1A1410]/25 text-xs mt-10">
           Anuluj w dowolnym momencie. Bez ukrytych opłat. Faktura VAT w cenie.
         </p>
       </main>

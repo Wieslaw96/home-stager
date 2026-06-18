@@ -47,29 +47,35 @@ const PLANS = [
   {
     key: "starter",
     name: "Starter",
-    price: "49",
+    price: "97",
     gen: "20",
-    features: ["20 generacji / miesiąc", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników"],
+    perGen: "4,85 zł / zdjęcie",
+    saving: null,
+    features: ["20 generacji / mies. (~4 ogłoszenia)", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników"],
     highlight: false,
     cta: "Zacznij teraz",
   },
   {
-    key: "growth",
-    name: "Growth",
-    price: "99",
-    gen: "60",
-    features: ["60 generacji / miesiąc", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników", "Priorytetowe wsparcie"],
+    key: "agent",
+    name: "Agent",
+    price: "247",
+    gen: "80",
+    perGen: "3,09 zł / zdjęcie",
+    saving: "36% taniej niż Starter",
+    features: ["80 generacji / mies. (~16 ogłoszeń)", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników", "Priorytetowa kolejka"],
     highlight: true,
-    cta: "Wybierz Growth",
+    cta: "Wybierz Agent",
   },
   {
-    key: "pro",
-    name: "Pro",
-    price: "499",
-    gen: "∞",
-    features: ["Nielimitowane generacje", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników", "Priorytetowe wsparcie", "Wczesny dostęp do nowych funkcji"],
+    key: "agencja",
+    name: "Agencja",
+    price: "597",
+    gen: "300",
+    perGen: "1,99 zł / zdjęcie",
+    saving: "59% taniej niż Starter",
+    features: ["300 generacji / mies. (~60 ogłoszeń)", "3 konta w planie", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Priorytetowe wsparcie"],
     highlight: false,
-    cta: "Wybierz Pro",
+    cta: "Wybierz Agencja",
   },
 ];
 
@@ -481,9 +487,17 @@ export default function LandingPage() {
                     </div>
                   )}
                   <h3 className="font-display font-bold text-xl mb-1">{plan.name}</h3>
-                  <div className="mb-5">
+                  <div className="mb-1">
                     <span className="font-display text-4xl font-black">{plan.price} zł</span>
                     <span className="text-white/40 text-sm"> / miesiąc</span>
+                  </div>
+                  <div className="mb-5 flex items-center gap-2">
+                    <span className="text-xs text-white/40">{plan.perGen}</span>
+                    {plan.saving && (
+                      <span className="text-xs font-semibold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-full">
+                        ↓ {plan.saving}
+                      </span>
+                    )}
                   </div>
 
                   <ul className="flex flex-col gap-2.5 mb-7 flex-1">
