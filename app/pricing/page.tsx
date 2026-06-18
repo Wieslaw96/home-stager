@@ -24,16 +24,30 @@ export default async function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b border-slate-200 px-4 py-4 flex items-center justify-between">
-        <span className="font-bold text-slate-800 text-lg">RoomStager</span>
+    <div className="min-h-screen bg-[#141412]">
+
+      {/* Header */}
+      <header className="bg-[#1E1E1B] border-b border-white/6 px-6 py-4 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#C9A96E] to-[#A07840] flex items-center justify-center text-sm">🏠</div>
+          <span className="font-bold text-[#F0EDE8] text-lg tracking-tight">RoomStager</span>
+        </Link>
         <div className="flex items-center gap-3">
           {user ? (
-            <Link href="/app" className="text-sm text-blue-600 hover:underline">Przejdź do aplikacji →</Link>
+            <Link href="/app" className="text-sm text-[#C9A96E] hover:text-[#E8D5A3] transition-colors">
+              Przejdź do aplikacji →
+            </Link>
           ) : (
             <>
-              <Link href="/login" className="text-sm text-slate-600 hover:text-slate-800">Zaloguj się</Link>
-              <Link href="/register" className="text-sm bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700">Zarejestruj się</Link>
+              <Link href="/login" className="text-sm text-[#F0EDE8]/60 hover:text-[#F0EDE8] transition-colors">
+                Zaloguj się
+              </Link>
+              <Link
+                href="/register"
+                className="text-sm bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a] font-semibold px-3 py-1.5 rounded-lg hover:opacity-90 transition-all"
+              >
+                Zarejestruj się
+              </Link>
             </>
           )}
         </div>
@@ -41,8 +55,8 @@ export default async function PricingPage() {
 
       <main className="max-w-5xl mx-auto px-4 py-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-slate-800 mb-3">Wybierz plan</h1>
-          <p className="text-slate-500 text-lg">Transformuj wnętrza z pomocą AI. Anuluj w dowolnym momencie.</p>
+          <h1 className="text-4xl font-bold text-[#F0EDE8] mb-3">Wybierz plan</h1>
+          <p className="text-[#F0EDE8]/50 text-lg">Transformuj wnętrza z pomocą AI. Anuluj w dowolnym momencie.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -54,28 +68,30 @@ export default async function PricingPage() {
             return (
               <div
                 key={key}
-                className={`bg-white rounded-2xl border-2 p-6 flex flex-col ${
-                  isGrowth ? "border-blue-500 shadow-lg shadow-blue-100" : "border-slate-200"
+                className={`rounded-2xl border-2 p-6 flex flex-col transition-all ${
+                  isGrowth
+                    ? "border-[#C9A96E]/40 bg-gradient-to-b from-[#C9A96E]/10 to-[#1E1E1B] shadow-xl shadow-[#C9A96E]/10"
+                    : "border-white/8 bg-[#1E1E1B]"
                 }`}
               >
                 {isGrowth && (
                   <div className="text-center mb-3">
-                    <span className="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                    <span className="bg-[#C9A96E] text-[#0a0a0a] text-xs font-black px-3 py-1 rounded-full tracking-wide uppercase">
                       Najpopularniejszy
                     </span>
                   </div>
                 )}
 
-                <h2 className="text-xl font-bold text-slate-800">{plan.name}</h2>
+                <h2 className="text-xl font-bold text-[#F0EDE8]">{plan.name}</h2>
                 <div className="mt-2 mb-4">
-                  <span className="text-4xl font-bold text-slate-900">{plan.amount / 100} zł</span>
-                  <span className="text-slate-500 text-sm"> / miesiąc</span>
+                  <span className="text-4xl font-bold text-[#F0EDE8]">{plan.amount / 100} zł</span>
+                  <span className="text-[#F0EDE8]/40 text-sm"> / miesiąc</span>
                 </div>
 
                 <ul className="flex flex-col gap-2 mb-6 flex-1">
                   {FEATURES[key].map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
-                      <span className="text-green-500 mt-0.5">✓</span>
+                    <li key={f} className="flex items-start gap-2 text-sm text-[#F0EDE8]/60">
+                      <span className="text-[#C9A96E] mt-0.5 flex-shrink-0">✓</span>
                       {f}
                     </li>
                   ))}
@@ -83,7 +99,7 @@ export default async function PricingPage() {
 
                 {isActive ? (
                   <form action="/api/billing-portal" method="POST">
-                    <button className="w-full border-2 border-blue-500 text-blue-600 rounded-xl py-2.5 text-sm font-semibold hover:bg-blue-50 transition-colors">
+                    <button className="w-full border-2 border-[#C9A96E]/40 text-[#C9A96E] rounded-xl py-2.5 text-sm font-semibold hover:bg-[#C9A96E]/10 transition-colors">
                       Zarządzaj subskrypcją
                     </button>
                   </form>
@@ -91,10 +107,10 @@ export default async function PricingPage() {
                   <form action="/api/checkout" method="POST">
                     <input type="hidden" name="plan" value={key} />
                     <button
-                      className={`w-full rounded-xl py-2.5 text-sm font-semibold transition-colors ${
+                      className={`w-full rounded-xl py-2.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98] ${
                         isGrowth
-                          ? "bg-blue-600 text-white hover:bg-blue-700"
-                          : "bg-slate-800 text-white hover:bg-slate-900"
+                          ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
+                          : "bg-white/8 text-[#F0EDE8] hover:bg-white/12 border border-white/10"
                       }`}
                     >
                       {user ? "Wybierz plan" : "Zacznij teraz"}
@@ -105,6 +121,10 @@ export default async function PricingPage() {
             );
           })}
         </div>
+
+        <p className="text-center text-[#F0EDE8]/25 text-xs mt-8">
+          Anuluj w dowolnym momencie. Bez ukrytych opłat. Faktura VAT w cenie.
+        </p>
       </main>
     </div>
   );
