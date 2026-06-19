@@ -189,7 +189,7 @@ export default function LandingPage() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
               <GoldButton href="/register" large>
-                Zacznij teraz — od 49 zł / mies.
+                Zacznij teraz — od 97 zł / mies.
               </GoldButton>
               <OutlineButton href="#demo">
                 ▶ Obejrzyj jak to działa
@@ -276,7 +276,7 @@ export default function LandingPage() {
                 </div>
               </div>
               {[
-                ["Koszt", "3 000 – 8 000 zł", "od 49 zł / mies."],
+                ["Koszt", "3 000 – 8 000 zł", "od 97 zł / mies."],
                 ["Czas realizacji", "2–3 tygodnie", "30 sekund"],
                 ["Liczba zdjęć", "Ograniczona", "Nielimitowana (Pro)"],
                 ["Zmiany stylów", "Nowe zlecenie = nowy koszt", "Kliknięcie"],
@@ -294,7 +294,7 @@ export default function LandingPage() {
             {/* Mobile: stacked cards */}
             <div className="sm:hidden flex flex-col gap-3">
               {[
-                ["Koszt", "3 000 – 8 000 zł", "od 49 zł / mies."],
+                ["Koszt", "3 000 – 8 000 zł", "od 97 zł / mies."],
                 ["Czas realizacji", "2–3 tygodnie", "30 sekund"],
                 ["Liczba zdjęć", "Ograniczona", "Nielimitowana (Pro)"],
                 ["Zmiany stylów", "Nowe zlecenie = nowy koszt", "Kliknięcie"],
@@ -606,7 +606,7 @@ export default function LandingPage() {
                   Anuluj w dowolnym momencie.
                 </p>
                 <GoldButton href="/register" large>
-                  Zacznij teraz — od 49 zł / mies. →
+                  Zacznij teraz — od 97 zł / mies. →
                 </GoldButton>
               </div>
             </div>
