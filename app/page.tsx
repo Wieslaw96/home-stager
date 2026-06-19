@@ -348,32 +348,44 @@ export default async function LandingPage() {
               </p>
             </div>
 
-            {/* TODO: Podmień src na właściwe zdjęcia before/after */}
             <div className="grid md:grid-cols-2 gap-6">
-              {[
-                { label: "Salon — styl nowoczesny", beforeSrc: "/before-1.jpg", afterSrc: "/after-1.jpg" },
-                { label: "Sypialnia — styl skandynawski", beforeSrc: "/before-2.jpg", afterSrc: "/after-2.jpg" },
-              ].map((item) => (
-                <div key={item.label} className="rounded-2xl overflow-hidden border border-white/8 bg-[#111111]">
-                  <div className="grid grid-cols-2 divide-x divide-white/8">
-                    <div className="aspect-[4/3] bg-[#1a1a1a] flex items-center justify-center">
-                      <div className="text-center p-4">
-                        <div className="text-3xl mb-2">📷</div>
-                        <div className="text-white/30 text-xs">Zdjęcie oryginalne</div>
-                      </div>
-                    </div>
-                    <div className="aspect-[4/3] bg-gradient-to-br from-[#C9A96E]/10 to-[#1a1a1a] flex items-center justify-center">
-                      <div className="text-center p-4">
-                        <div className="text-3xl mb-2">✨</div>
-                        <div className="text-[#C9A96E] text-xs font-semibold">Po stagingu AI</div>
-                      </div>
-                    </div>
+              {/* Karta 1 — prawdziwa para before/after */}
+              <div className="rounded-2xl overflow-hidden border border-white/8 bg-[#111111]">
+                <div className="grid grid-cols-2 divide-x divide-white/8">
+                  <div className="aspect-[4/3] relative overflow-hidden">
+                    <img src="/before-1.jpg" alt="Pusty pokój przed stagingiem" className="w-full h-full object-cover" />
+                    <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-sm text-white/70 text-[10px] font-semibold px-2 py-1 rounded-md">PRZED</div>
                   </div>
-                  <div className="px-4 py-3 border-t border-white/6">
-                    <p className="text-white/50 text-xs">{item.label}</p>
+                  <div className="aspect-[4/3] relative overflow-hidden">
+                    <img src="/after-1.jpg" alt="Salon po stagingu AI — styl nowoczesny" className="w-full h-full object-cover" />
+                    <div className="absolute top-2 left-2 bg-[#C9A96E]/90 backdrop-blur-sm text-[#0a0a0a] text-[10px] font-semibold px-2 py-1 rounded-md">PO</div>
                   </div>
                 </div>
-              ))}
+                <div className="px-4 py-3 border-t border-white/6">
+                  <p className="text-white/50 text-xs">Salon — styl nowoczesny · 30 sekund</p>
+                </div>
+              </div>
+
+              {/* Karta 2 — placeholder na własne zdjęcia */}
+              <div className="rounded-2xl overflow-hidden border border-white/8 bg-[#111111]">
+                <div className="grid grid-cols-2 divide-x divide-white/8">
+                  <div className="aspect-[4/3] bg-[#1a1a1a] flex items-center justify-center">
+                    <div className="text-center p-4">
+                      <div className="text-3xl mb-2">📷</div>
+                      <div className="text-white/30 text-xs">Twoje zdjęcie</div>
+                    </div>
+                  </div>
+                  <div className="aspect-[4/3] bg-gradient-to-br from-[#C9A96E]/10 to-[#1a1a1a] flex items-center justify-center">
+                    <div className="text-center p-4">
+                      <div className="text-3xl mb-2">✨</div>
+                      <div className="text-[#C9A96E] text-xs font-semibold">Po stagingu AI</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="px-4 py-3 border-t border-white/6">
+                  <p className="text-white/50 text-xs">Sypialnia — styl skandynawski · wkrótce</p>
+                </div>
+              </div>
             </div>
 
             <p className="text-center text-white/30 text-xs mt-6">
