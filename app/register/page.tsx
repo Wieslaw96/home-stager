@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Logo } from "@/components/Logo";
 
-export default function RegisterPage() {
+function RegisterForm() {
+  const searchParams = useSearchParams();
+  const sessionId = searchParams.get("session_id");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -17,10 +21,17 @@ export default function RegisterPage() {
     setLoading(true);
     setError(null);
     const supabase = createClient();
+
+    const next = sessionId
+      ? `/api/payment-success?session_id=${sessionId}`
+      : "/app";
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${location.origin}/auth/callback` },
+      options: {
+        emailRedirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+      },
     });
     if (error) {
       setError(error.message);
@@ -38,7 +49,8 @@ export default function RegisterPage() {
           <h2 className="text-xl font-bold text-[#1A1410] mb-2">Sprawdź swoją skrzynkę</h2>
           <p className="text-sm text-[#1A1410]/50">
             Wysłaliśmy link potwierdzający na <strong className="text-[#1A1410]/80">{email}</strong>.
-            Kliknij go, żeby aktywować konto.
+            Kliknij go, żeby aktywować konto
+            {sessionId ? " i aktywować subskrypcję." : "."}
           </p>
         </div>
       </div>
@@ -49,16 +61,23 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-[#E8D9C4] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
 
-        {/* Logo */}
         <div className="flex justify-center mb-8">
           <Logo dark />
         </div>
+
+        {sessionId && (
+          <div className="bg-[#C9A96E]/15 border border-[#C9A96E]/30 rounded-xl px-4 py-3 mb-4 text-center">
+            <p className="text-sm text-[#1A1410]/80 font-medium">
+              Płatność zakończona. Utwórz konto, żeby aktywować subskrypcję.
+            </p>
+          </div>
+        )}
 
         <div className="bg-white rounded-2xl border border-[#8B6B44]/35 p-8">
           <h1 className="text-2xl font-bold text-[#1A1410] mb-1">Utwórz konto</h1>
           <p className="text-sm text-[#1A1410]/50 mb-6">
             Masz już konto?{" "}
-            <Link href="/login" className="text-[#C9A96E] hover:text-[#E8D5A3] transition-colors">Zaloguj się</Link>
+            <Link href={sessionId ? `/login?next=/api/payment-success?session_id=${sessionId}` : "/login"} className="text-[#C9A96E] hover:text-[#E8D5A3] transition-colors">Zaloguj się</Link>
           </p>
 
           <form onSubmit={handleRegister} className="flex flex-col gap-4">
@@ -102,5 +121,13 @@ export default function RegisterPage() {
 
       </div>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense>
+      <RegisterForm />
+    </Suspense>
   );
 }

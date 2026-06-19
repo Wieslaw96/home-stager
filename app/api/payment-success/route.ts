@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL(`/login?next=/api/payment-success?session_id=${sessionId}`, req.url), 303);
   }
 
   const stripe = getStripe();
@@ -46,10 +46,15 @@ export async function GET(req: NextRequest) {
       const admin = adminClient();
 
       // Ensure profile row exists (FK constraint)
+      const stripeCustomerId = typeof session.customer === "string"
+        ? session.customer
+        : session.customer?.id ?? null;
+
       await admin.from("profiles").upsert({
         id: user.id,
         email: user.email ?? "",
-      }, { onConflict: "id", ignoreDuplicates: true });
+        ...(stripeCustomerId ? { stripe_customer_id: stripeCustomerId } : {}),
+      }, { onConflict: "id", ignoreDuplicates: false });
 
       const periodEndTs: number =
         (sub as unknown as { current_period_end?: number }).current_period_end
