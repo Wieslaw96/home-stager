@@ -204,7 +204,7 @@ export default async function LandingPage() {
               </OutlineButton>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-16 text-white/40 text-xs">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-16 text-white/60 text-sm">
               <span className="flex items-center gap-1.5"><span className="text-[#C9A96E]">✓</span> Okna i drzwi zachowane dokładnie jak w oryginale</span>
               <span className="flex items-center gap-1.5"><span className="text-[#C9A96E]">✓</span> Gotowe do publikacji w ogłoszeniu</span>
               <span className="flex items-center gap-1.5"><span className="text-[#C9A96E]">✓</span> Nie generator — narzędzie profesjonalne</span>
