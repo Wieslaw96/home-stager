@@ -54,7 +54,7 @@ const PLANS = [
     saving: null,
     features: ["20 generacji / mies. (~4 ogłoszenia)", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników"],
     highlight: false,
-    cta: "Zacznij teraz",
+    cta: "Wybierz Starter",
   },
   {
     key: "agent",
