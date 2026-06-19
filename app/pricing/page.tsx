@@ -143,18 +143,16 @@ export default async function PricingPage() {
                     </button>
                   </form>
                 ) : (
-                  <form action="/api/checkout" method="POST">
-                    <input type="hidden" name="plan" value={key} />
-                    <button
-                      className={`w-full rounded-xl py-2.5 text-sm font-semibold transition-all hover:opacity-90 active:scale-[0.98] ${
-                        isAgent
-                          ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
-                          : "bg-white text-[#1A1410] hover:bg-[#1A1410]/5 border-2 border-[#1A1410]/35"
-                      }`}
-                    >
-                      {user ? "Wybierz plan" : "Zacznij teraz"}
-                    </button>
-                  </form>
+                  <Link
+                    href={`/api/checkout/${key}`}
+                    className={`block w-full rounded-xl py-2.5 text-sm font-semibold text-center transition-all hover:opacity-90 active:scale-[0.98] ${
+                      isAgent
+                        ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
+                        : "bg-white text-[#1A1410] hover:bg-[#1A1410]/5 border-2 border-[#1A1410]/35"
+                    }`}
+                  >
+                    {user ? "Wybierz plan" : "Zacznij teraz"}
+                  </Link>
                 )}
               </div>
             );

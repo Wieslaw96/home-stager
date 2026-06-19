@@ -513,32 +513,16 @@ export default async function LandingPage() {
                     ))}
                   </ul>
 
-                  {user ? (
-                    <form action="/api/checkout" method="POST">
-                      <input type="hidden" name="plan" value={plan.key} />
-                      <button
-                        type="submit"
-                        className={`w-full rounded-xl py-3 text-sm font-semibold transition-all duration-200 hover:scale-[1.02] ${
-                          plan.highlight
-                            ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
-                            : "bg-white/8 text-white hover:bg-white/12 border border-white/10"
-                        }`}
-                      >
-                        {plan.cta}
-                      </button>
-                    </form>
-                  ) : (
-                    <Link
-                      href="/pricing"
-                      className={`block w-full rounded-xl py-3 text-sm font-semibold text-center transition-all duration-200 hover:scale-[1.02] ${
-                        plan.highlight
-                          ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
-                          : "bg-white/8 text-white hover:bg-white/12 border border-white/10"
-                      }`}
-                    >
-                      {plan.cta}
-                    </Link>
-                  )}
+                  <Link
+                    href={`/api/checkout/${plan.key}`}
+                    className={`block w-full rounded-xl py-3 text-sm font-semibold text-center transition-all duration-200 hover:scale-[1.02] ${
+                      plan.highlight
+                        ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
+                        : "bg-white/8 text-white hover:bg-white/12 border border-white/10"
+                    }`}
+                  >
+                    {plan.cta}
+                  </Link>
                 </div>
               ))}
             </div>
