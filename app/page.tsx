@@ -366,24 +366,20 @@ export default async function LandingPage() {
                 </div>
               </div>
 
-              {/* Karta 2 — placeholder na własne zdjęcia */}
+              {/* Karta 2 — salon boho */}
               <div className="rounded-2xl overflow-hidden border border-white/8 bg-[#111111]">
                 <div className="grid grid-cols-2 divide-x divide-white/8">
-                  <div className="aspect-[4/3] bg-[#1a1a1a] flex items-center justify-center">
-                    <div className="text-center p-4">
-                      <div className="text-3xl mb-2">📷</div>
-                      <div className="text-white/30 text-xs">Twoje zdjęcie</div>
-                    </div>
+                  <div className="aspect-[4/3] relative overflow-hidden">
+                    <img src="/before-2.jpg" alt="Salon przed stagingiem" className="w-full h-full object-cover" />
+                    <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-sm text-white/70 text-[10px] font-semibold px-2 py-1 rounded-md">PRZED</div>
                   </div>
-                  <div className="aspect-[4/3] bg-gradient-to-br from-[#C9A96E]/10 to-[#1a1a1a] flex items-center justify-center">
-                    <div className="text-center p-4">
-                      <div className="text-3xl mb-2">✨</div>
-                      <div className="text-[#C9A96E] text-xs font-semibold">Po stagingu AI</div>
-                    </div>
+                  <div className="aspect-[4/3] relative overflow-hidden">
+                    <img src="/after-2.jpg" alt="Salon po stagingu AI — styl boho" className="w-full h-full object-cover" />
+                    <div className="absolute top-2 left-2 bg-[#C9A96E]/90 backdrop-blur-sm text-[#0a0a0a] text-[10px] font-semibold px-2 py-1 rounded-md">PO</div>
                   </div>
                 </div>
                 <div className="px-4 py-3 border-t border-white/6">
-                  <p className="text-white/50 text-xs">Sypialnia — styl skandynawski · wkrótce</p>
+                  <p className="text-white/50 text-xs">Salon — styl boho · 30 sekund</p>
                 </div>
               </div>
             </div>
