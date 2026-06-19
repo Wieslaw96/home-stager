@@ -362,7 +362,7 @@ export default async function LandingPage() {
                   </div>
                 </div>
                 <div className="px-4 py-3 border-t border-white/6">
-                  <p className="text-white/50 text-xs">Salon — styl nowoczesny · 30 sekund</p>
+                  <p className="text-white/50 text-xs">Sypialnia — usunięcie bałaganu · 30 sekund</p>
                 </div>
               </div>
 
