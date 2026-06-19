@@ -52,7 +52,7 @@ const PLANS = [
     gen: "20",
     perGen: "4,85 zł / zdjęcie",
     saving: null,
-    features: ["20 generacji / mies. (~4 ogłoszenia)", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników"],
+    features: ["20 generacji / mies. (~4 ogłoszenia)", "Geometria pokoju zachowana w 100%", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników"],
     highlight: false,
     cta: "Wybierz Starter",
   },
@@ -63,7 +63,7 @@ const PLANS = [
     gen: "80",
     perGen: "3,09 zł / zdjęcie",
     saving: "36% taniej niż Starter",
-    features: ["80 generacji / mies. (~16 ogłoszeń)", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników", "Priorytetowa kolejka"],
+    features: ["80 generacji / mies. (~16 ogłoszeń)", "Geometria pokoju zachowana w 100%", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Pobieranie wyników", "Priorytetowa kolejka"],
     highlight: true,
     cta: "Wybierz Agent",
   },
@@ -74,7 +74,7 @@ const PLANS = [
     gen: "300",
     perGen: "1,99 zł / zdjęcie",
     saving: "59% taniej niż Starter",
-    features: ["300 generacji / mies. (~60 ogłoszeń)", "3 konta w planie", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Priorytetowe wsparcie"],
+    features: ["300 generacji / mies. (~60 ogłoszeń)", "3 konta w planie", "Geometria pokoju zachowana w 100%", "Wszystkie style wnętrz", "Wszystkie typy pomieszczeń", "Priorytetowe wsparcie"],
     highlight: false,
     cta: "Wybierz Agencja",
   },
@@ -84,6 +84,10 @@ const FAQS = [
   {
     q: "Czy potrzebuję profesjonalnych zdjęć?",
     a: "Nie. Zdjęcie telefonem w zupełności wystarczy. AI radzi sobie nawet ze słabym oświetleniem i kątami.",
+  },
+  {
+    q: "Czym różnicie się od darmowych generatorów AI jak Google?",
+    a: "Darmowe generatory tworzą inspirację, nie materiał do ogłoszenia — przesuwają ściany, znikają okna, drzwi lądują w przypadkowych miejscach. Stageria jest trenowana specjalnie na architekturę wnętrz i zachowuje strukturę pokoju w 100%. Wynik nadaje się prosto do ogłoszenia, bez retuszu.",
   },
   {
     q: "Jak szybko dostaję wynik?",
@@ -191,13 +195,19 @@ export default async function LandingPage() {
               bez tygodni czekania. Tylko wynik, który sprzedaje.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <GoldButton href="#plans" large>
                 Zacznij teraz — od 97 zł / mies.
               </GoldButton>
               <OutlineButton href="#demo">
                 ▶ Obejrzyj jak to działa
               </OutlineButton>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-16 text-white/40 text-xs">
+              <span className="flex items-center gap-1.5"><span className="text-[#C9A96E]">✓</span> Okna i drzwi zachowane dokładnie jak w oryginale</span>
+              <span className="flex items-center gap-1.5"><span className="text-[#C9A96E]">✓</span> Gotowe do publikacji w ogłoszeniu</span>
+              <span className="flex items-center gap-1.5"><span className="text-[#C9A96E]">✓</span> Nie generator — narzędzie profesjonalne</span>
             </div>
 
             {/* Stats */}
@@ -274,7 +284,7 @@ export default async function LandingPage() {
             <div className="hidden sm:block rounded-2xl border border-white/8 overflow-hidden">
               <div className="grid grid-cols-3 bg-[#111111]">
                 <div className="p-4 text-white/30 text-sm font-semibold" />
-                <div className="p-4 text-center text-white/40 text-sm font-semibold border-x border-white/6">Tradycyjny staging</div>
+                <div className="p-4 text-center text-white/40 text-sm font-semibold border-x border-white/6">Inne rozwiązania</div>
                 <div className="p-4 text-center text-sm font-semibold">
                   <span className="gold-gradient font-bold">Stageria</span>
                 </div>
@@ -284,6 +294,7 @@ export default async function LandingPage() {
                 ["Czas realizacji", "2–3 tygodnie", "30 sekund"],
                 ["Liczba zdjęć", "Ograniczona", "Nielimitowana (Pro)"],
                 ["Zmiany stylów", "Nowe zlecenie = nowy koszt", "Kliknięcie"],
+                ["Geometria pokoju", "Zniekształcona przez AI", "Zachowana w 100%"],
                 ["Ryzyko", "Logistyka, transport, zniszczenia", "Żadne"],
                 ["Dostępność", "W godzinach roboczych", "24/7, z każdego miejsca"],
               ].map(([label, traditional, ours], i) => (
@@ -302,6 +313,7 @@ export default async function LandingPage() {
                 ["Czas realizacji", "2–3 tygodnie", "30 sekund"],
                 ["Liczba zdjęć", "Ograniczona", "Nielimitowana (Pro)"],
                 ["Zmiany stylów", "Nowe zlecenie = nowy koszt", "Kliknięcie"],
+                ["Geometria pokoju", "Zniekształcona przez AI", "Zachowana w 100%"],
                 ["Ryzyko", "Logistyka, transport, zniszczenia", "Żadne"],
                 ["Dostępność", "W godzinach roboczych", "24/7, z każdego miejsca"],
               ].map(([label, traditional, ours]) => (
