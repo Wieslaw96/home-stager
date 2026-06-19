@@ -188,7 +188,7 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-              <GoldButton href="#pricing" large>
+              <GoldButton href="#plans" large>
                 Zacznij teraz — od 97 zł / mies.
               </GoldButton>
               <OutlineButton href="#demo">
@@ -469,7 +469,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div id="plans" className="grid md:grid-cols-3 gap-6 items-stretch scroll-mt-20">
               {PLANS.map((plan) => (
                 <div
                   key={plan.key}
