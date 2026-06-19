@@ -561,9 +561,9 @@ export default async function LandingPage() {
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { text: "Stageria skróciła czas przygotowania ogłoszenia z 2 tygodni do jednego dnia. Kupujący pytają o mieszkania, które wyglądają jak z magazynu.", name: "Marek K.", role: "Agent nieruchomości, Warszawa" },
-                { text: "Używam tego narzędzia przy każdym flipie. Zwrot inwestycji jest natychmiastowy — staging za 99 zł sprzedaje mieszkanie o 10 000 zł drożej.", name: "Joanna W.", role: "Inwestorka, Kraków" },
-                { text: "Moi klienci są zachwyceni, że mogę im pokazać jak będzie wyglądało mieszkanie jeszcze przed remontem. To przewaga, której nie ma moja konkurencja.", name: "Tomasz P.", role: "Pośrednik, Wrocław" },
+                { text: "Miałem kawalerkę w bloku z lat 70. Zero zainteresowania przez tydzień. Wgrałem zdjęcie do Stagerii, po 40 sekundach miałem gotowe ogłoszenie. Pierwsze zapytanie dostałem tego samego wieczoru.", name: "Marek K.", role: "Agent nieruchomości, Warszawa" },
+                { text: "Przy ostatnim flipie wydałam 97 zł na Stagerię. Mieszkanie sprzedało się za 11 tys. więcej niż podobne w tej samej klatce. Trudno to nazwać inaczej niż najlepszą inwestycją miesiąca.", name: "Joanna W.", role: "Inwestorka, Kraków" },
+                { text: "Specjalizuję się w lokalach deweloperskich. Dzięki Stagerii mogę pokazać klientom potencjał tych mieszkań, a nie gołe mury. Decyzje zapadają na pierwszym spotkaniu, nie po trzeciej wizycie.", name: "Tomasz P.", role: "Pośrednik, Wrocław" },
               ].map((t) => (
                 <div key={t.name} className="card-glow bg-[#111111] border border-white/6 rounded-2xl p-6 flex flex-col transition-all duration-300">
                   <div className="flex gap-0.5 mb-4">
