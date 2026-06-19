@@ -86,7 +86,7 @@ const FAQS = [
     a: "Nie. Zdjęcie telefonem w zupełności wystarczy. AI radzi sobie nawet ze słabym oświetleniem i kątami.",
   },
   {
-    q: "Czym różnicie się od darmowych generatorów AI jak Google?",
+    q: "Czym różnicie się od innych generatorów AI?",
     a: "Darmowe generatory tworzą inspirację, nie materiał do ogłoszenia — przesuwają ściany, znikają okna, drzwi lądują w przypadkowych miejscach. Stageria jest trenowana specjalnie na architekturę wnętrz i zachowuje strukturę pokoju w 100%. Wynik nadaje się prosto do ogłoszenia, bez retuszu.",
   },
   {
