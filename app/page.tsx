@@ -188,7 +188,7 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-              <GoldButton href="/pricing" large>
+              <GoldButton href="#pricing" large>
                 Zacznij teraz — od 97 zł / mies.
               </GoldButton>
               <OutlineButton href="#demo">
