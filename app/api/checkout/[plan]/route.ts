@@ -44,7 +44,6 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ plan
 
   // Guest: no account needed — Stripe collects email, register after payment
   const session = await stripe.checkout.sessions.create({
-    customer_creation: "always",
     line_items: [{ price: plan.priceId, quantity: 1 }],
     mode: "subscription",
     success_url: `${siteUrl}/register?session_id={CHECKOUT_SESSION_ID}`,
