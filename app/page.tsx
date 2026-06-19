@@ -188,7 +188,7 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-              <GoldButton href="/register" large>
+              <GoldButton href="/pricing" large>
                 Zacznij teraz — od 97 zł / mies.
               </GoldButton>
               <OutlineButton href="#demo">
@@ -605,7 +605,7 @@ export default function LandingPage() {
                   Pierwsze zdjęcie wygenerujesz w mniej niż 2 minuty od rejestracji.
                   Anuluj w dowolnym momencie.
                 </p>
-                <GoldButton href="/register" large>
+                <GoldButton href="/pricing" large>
                   Zacznij teraz — od 97 zł / mies. →
                 </GoldButton>
               </div>
