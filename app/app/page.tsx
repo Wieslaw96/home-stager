@@ -606,7 +606,10 @@ export default function Page() {
 
   const reset = () => { setResult(null); setImagePreview(null); setImageBase64(null); setError(null); setErrorCode(null); };
 
-  const canGenerate = isGenerating ? false : currentMode.needsImage ? !!imageBase64 : true;
+  const planLimit = userPlan ? PLAN_LIMITS[userPlan] : null;
+  const limitReached = planLimit !== null && usageCount >= (planLimit ?? 0);
+  const remaining = planLimit !== null ? (planLimit ?? 0) - usageCount : null;
+  const canGenerate = isGenerating ? false : limitReached ? false : currentMode.needsImage ? !!imageBase64 : true;
 
   return (
     <div className="min-h-svh bg-[#E8D9C4]">
@@ -616,9 +619,18 @@ export default function Page() {
           <Logo dark size="sm" />
           <div className="ml-auto flex items-center gap-2">
             {userPlan && (
-              <div className="hidden sm:flex items-center gap-2 text-xs text-[#1A1410]/50">
+              <div className="hidden sm:flex items-center gap-2 text-xs">
                 <span className="bg-[#C9A96E]/15 text-[#C9A96E] font-semibold px-2 py-0.5 rounded-full">{PLAN_LABELS[userPlan]}</span>
-                {PLAN_LIMITS[userPlan] !== null && <span>{usageCount}/{PLAN_LIMITS[userPlan]} gen.</span>}
+                {planLimit !== null && (
+                  <span className={remaining !== null && remaining <= 3 ? "text-amber-500 font-semibold" : "text-[#1A1410]/50"}>
+                    {usageCount}/{planLimit} gen.{remaining !== null && remaining <= 3 && remaining > 0 ? ` · zostało ${remaining}!` : ""}
+                  </span>
+                )}
+                {remaining !== null && remaining <= 3 && !limitReached && (
+                  <Link href="/pricing" className="text-[10px] bg-amber-500/15 text-amber-600 font-semibold px-2 py-0.5 rounded-full hover:bg-amber-500/25 transition-colors">
+                    Upgrade
+                  </Link>
+                )}
               </div>
             )}
             {userEmail && (
@@ -781,13 +793,33 @@ export default function Page() {
                   </div>
                 )}
 
-                {/* Error */}
-                {error && (
-                  <div className="p-4 rounded-xl bg-red-950/40 border border-red-900/30 text-red-400 text-sm flex flex-col gap-2">
-                    <p>{error}</p>
-                    {errorCode === "limit_reached" && (
-                      <Link href="/pricing" className="text-[#C9A96E] font-semibold hover:underline text-xs">Kup wyższy plan →</Link>
+                {/* Limit wyczerpany — prominentna karta upgrade */}
+                {(errorCode === "limit_reached" || limitReached) && (
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-[#C9A96E]/15 to-[#C9A96E]/5 border border-[#C9A96E]/30 flex flex-col gap-3">
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">🔒</span>
+                      <div>
+                        <p className="font-bold text-[#1A1410]/85 text-sm">Wykorzystałeś limit {planLimit} generacji w tym miesiącu</p>
+                        <p className="text-xs text-[#1A1410]/50 mt-0.5">
+                          {userPlan === "agencja"
+                            ? "Jesteś na najwyższym planie. Limit odnowi się na początku następnego miesiąca."
+                            : "Przejdź na wyższy plan i generuj więcej bez przerwy."}
+                        </p>
+                      </div>
+                    </div>
+                    {userPlan !== "agencja" && (
+                      <Link href="/pricing"
+                        className="w-full py-3 text-center rounded-xl bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a] font-bold text-sm hover:opacity-90 transition-all">
+                        {userPlan === "starter" ? "Przejdź na Agent — 80 generacji →" : "Przejdź na Agencja — 300 generacji →"}
+                      </Link>
                     )}
+                  </div>
+                )}
+
+                {/* Inne błędy */}
+                {error && errorCode !== "limit_reached" && (
+                  <div className="p-4 rounded-xl bg-red-950/40 border border-red-900/30 text-red-400 text-sm">
+                    <p>{error}</p>
                   </div>
                 )}
 
