@@ -384,9 +384,6 @@ export default async function LandingPage() {
               </div>
             </div>
 
-            <p className="text-center text-white/30 text-xs mt-6">
-              Własne zdjęcia before/after pojawią się tutaj wkrótce
-            </p>
           </div>
         </section>
 
