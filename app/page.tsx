@@ -641,6 +641,7 @@ export default async function LandingPage() {
               <Link href="/register" className="hover:text-white/60 transition-colors">Zarejestruj się</Link>
               <Link href="/regulamin" className="hover:text-white/60 transition-colors">Regulamin</Link>
               <Link href="/polityka-prywatnosci" className="hover:text-white/60 transition-colors">Polityka prywatności</Link>
+              <a href="mailto:kontakt@stageria.pl" className="hover:text-white/60 transition-colors">kontakt@stageria.pl</a>
             </div>
             <p className="text-white/20 text-xs">© 2026 Stageria. Wszelkie prawa zastrzeżone.</p>
           </div>
