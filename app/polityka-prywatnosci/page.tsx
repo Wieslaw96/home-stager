@@ -21,7 +21,7 @@ export default function PolitykaPrywatnosci() {
           <section>
             <h2 className="text-lg font-bold text-[#1A1410] mb-3">1. Administrator danych osobowych</h2>
             <p>Administratorem Twoich danych osobowych jest <strong>Wiesław Kamiński</strong>, prowadzący serwis Stageria pod adresem stageria.pl.</p>
-            <p className="mt-2">Kontakt: <strong>wiesik4040@gmail.com</strong></p>
+            <p className="mt-2">Kontakt: <strong>kontakt@stageria.pl</strong></p>
           </section>
 
           <section>
@@ -106,7 +106,7 @@ export default function PolitykaPrywatnosci() {
               <li><strong>Sprzeciw</strong> wobec przetwarzania opartego na prawnie uzasadnionym interesie (art. 21 RODO)</li>
               <li><strong>Cofnięcie zgody</strong> w dowolnym momencie, bez wpływu na zgodność z prawem przetwarzania dokonanego przed cofnięciem</li>
             </ul>
-            <p className="mt-3">Aby skorzystać z powyższych praw, skontaktuj się z nami: <strong>wiesik4040@gmail.com</strong>. Odpowiemy w ciągu 30 dni.</p>
+            <p className="mt-3">Aby skorzystać z powyższych praw, skontaktuj się z nami: <strong>kontakt@stageria.pl</strong>. Odpowiemy w ciągu 30 dni.</p>
             <p className="mt-2">Masz również prawo wniesienia skargi do <strong>Prezesa Urzędu Ochrony Danych Osobowych</strong> (uodo.gov.pl).</p>
           </section>
 
@@ -133,7 +133,7 @@ export default function PolitykaPrywatnosci() {
           <section>
             <h2 className="text-lg font-bold text-[#1A1410] mb-3">10. Kontakt</h2>
             <p>W sprawach dotyczących ochrony danych osobowych prosimy o kontakt:</p>
-            <p className="mt-2"><strong>E-mail:</strong> wiesik4040@gmail.com<br /><strong>Serwis:</strong> stageria.pl</p>
+            <p className="mt-2"><strong>E-mail:</strong> kontakt@stageria.pl<br /><strong>Serwis:</strong> stageria.pl</p>
           </section>
 
         </div>

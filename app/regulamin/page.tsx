@@ -22,7 +22,7 @@ export default function RegulaminPage() {
             <h2 className="text-lg font-bold text-[#1A1410] mb-3">§ 1. Postanowienia ogólne</h2>
             <ol className="list-decimal list-outside ml-5 space-y-2">
               <li>Niniejszy Regulamin określa zasady korzystania z serwisu internetowego Stageria, dostępnego pod adresem <strong>stageria.pl</strong>, świadczącego usługę wirtualnego stagingu nieruchomości z wykorzystaniem sztucznej inteligencji.</li>
-              <li>Usługodawcą jest Wiesław Kamiński, prowadzący działalność gospodarczą, e-mail: <strong>wiesik4040@gmail.com</strong> (dalej: „Stageria" lub „Usługodawca").</li>
+              <li>Usługodawcą jest Wiesław Kamiński, prowadzący działalność gospodarczą, e-mail: <strong>kontakt@stageria.pl</strong> (dalej: „Stageria" lub „Usługodawca").</li>
               <li>Korzystanie z Serwisu oznacza akceptację niniejszego Regulaminu.</li>
               <li>Regulamin jest udostępniany nieodpłatnie na stronie stageria.pl/regulamin w formie umożliwiającej jego utrwalenie.</li>
             </ol>
@@ -74,7 +74,7 @@ export default function RegulaminPage() {
             <ol className="list-decimal list-outside ml-5 space-y-2">
               <li>Użytkownik będący konsumentem ma prawo odstąpić od umowy w terminie 14 dni od jej zawarcia, bez podawania przyczyny.</li>
               <li>Prawo odstąpienia nie przysługuje, jeżeli Usługodawca spełnił świadczenie w całości za wyraźną zgodą Użytkownika, który został poinformowany przed rozpoczęciem świadczenia, że po jego spełnieniu utraci prawo odstąpienia.</li>
-              <li>Odstąpienie od umowy możliwe jest poprzez przesłanie oświadczenia na adres: wiesik4040@gmail.com.</li>
+              <li>Odstąpienie od umowy możliwe jest poprzez przesłanie oświadczenia na adres: kontakt@stageria.pl.</li>
             </ol>
           </section>
 
@@ -111,7 +111,7 @@ export default function RegulaminPage() {
           <section>
             <h2 className="text-lg font-bold text-[#1A1410] mb-3">§ 9. Reklamacje</h2>
             <ol className="list-decimal list-outside ml-5 space-y-2">
-              <li>Reklamacje dotyczące działania Serwisu należy kierować na adres: <strong>wiesik4040@gmail.com</strong>.</li>
+              <li>Reklamacje dotyczące działania Serwisu należy kierować na adres: <strong>kontakt@stageria.pl</strong>.</li>
               <li>Reklamacja powinna zawierać: dane kontaktowe, opis problemu i oczekiwany sposób rozwiązania.</li>
               <li>Usługodawca rozpatruje reklamację w terminie 14 dni roboczych od jej otrzymania.</li>
             </ol>
