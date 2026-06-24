@@ -225,22 +225,14 @@ export default async function LandingPage() {
         {/* ── VIDEO DEMO ────────────────────────────────────────────────── */}
         <section id="demo" className="px-6 pb-24">
           <div className="max-w-4xl mx-auto">
-            <div className="relative rounded-2xl overflow-hidden border border-white/8 bg-[#111111] aspect-video flex items-center justify-center group">
-              {/* TODO: Podmień na właściwe wideo — np. <video src="/demo.mp4" controls poster="/demo-thumbnail.jpg" className="w-full h-full object-cover" /> */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#C9A96E]/10 to-transparent" />
-              <div className="text-center relative z-10">
-                <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-4 group-hover:bg-white/15 transition-colors cursor-pointer backdrop-blur-sm">
-                  <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <p className="text-white/40 text-sm">Demo wideo — wkrótce</p>
-              </div>
-              <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2">
-                <div className="h-0.5 flex-1 bg-white/10 rounded-full">
-                  <div className="h-full w-0 bg-[#C9A96E] rounded-full" />
-                </div>
-              </div>
+            <div className="relative rounded-2xl overflow-hidden border border-white/8 bg-[#111111] aspect-video">
+              <video
+                src="/demo.mp4"
+                controls
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </section>
