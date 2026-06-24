@@ -227,12 +227,13 @@ export default async function LandingPage() {
           <div className="max-w-4xl mx-auto">
             <div className="relative rounded-2xl overflow-hidden border border-white/8 bg-[#111111] aspect-video">
               <video
-                src="/demo.mp4"
                 controls
                 playsInline
                 preload="metadata"
                 className="w-full h-full object-cover"
-              />
+              >
+                <source src="/demo.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </section>
