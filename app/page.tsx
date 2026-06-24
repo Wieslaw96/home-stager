@@ -247,13 +247,14 @@ export default async function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <GoldButton href="#plans" large>
-                Zacznij teraz — od 97 zł / mies.
+              <GoldButton href="/register" large>
+                Wypróbuj za darmo — 1 generacja gratis
               </GoldButton>
               <OutlineButton href="#demo">
                 ▶ Obejrzyj jak to działa
               </OutlineButton>
             </div>
+            <p className="text-white/30 text-sm mb-8">Bez karty kredytowej · <a href="#plans" className="underline underline-offset-2 hover:text-white/50 transition-colors">Sprawdź plany płatne →</a></p>
 
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mb-16 text-white/60 text-sm">
               <span className="flex items-center gap-1.5"><span className="text-[#C9A96E]">✓</span> Okna i drzwi zachowane dokładnie jak w oryginale</span>
@@ -663,11 +664,12 @@ export default async function LandingPage() {
                 </h2>
                 <p className="text-white/50 text-lg mb-10 max-w-xl mx-auto">
                   Pierwsze zdjęcie wygenerujesz w mniej niż 2 minuty od rejestracji.
-                  Anuluj w dowolnym momencie.
+                  Bez karty kredytowej.
                 </p>
-                <GoldButton href="/pricing" large>
-                  Zacznij teraz — od 97 zł / mies. →
+                <GoldButton href="/register" large>
+                  Wypróbuj za darmo →
                 </GoldButton>
+                <p className="text-white/30 text-sm mt-4">1 generacja gratis · potem od 97 zł / mies.</p>
               </div>
             </div>
           </div>
