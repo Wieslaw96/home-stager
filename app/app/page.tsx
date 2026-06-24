@@ -158,7 +158,6 @@ const SPECIALITY_DECORS: { id: string; label: string }[] = [
   { id: "SPECIALITY_DECOR_0", label: "Brak (standardowe)" },
   { id: "SPECIALITY_DECOR_1", label: "Halloween" },
   { id: "SPECIALITY_DECOR_2", label: "Boże Narodzenie" },
-  { id: "SPECIALITY_DECOR_3", label: "Thanksgiving" },
   { id: "SPECIALITY_DECOR_4", label: "Jesień" },
   { id: "SPECIALITY_DECOR_5", label: "Wiosna" },
   { id: "SPECIALITY_DECOR_6", label: "Lato" },
