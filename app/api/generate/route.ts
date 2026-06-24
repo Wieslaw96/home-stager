@@ -123,9 +123,11 @@ export async function POST(req: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return Response.json({ error: "Wymagane logowanie." }, { status: 401 });
 
-  const { data: sub } = await supabase.from("subscriptions").select("plan,status")
+  const { data: sub } = await supabase.from("subscriptions").select("plan,status,current_period_end")
     .eq("user_id", user.id).eq("status", "active").maybeSingle();
   if (!sub) return Response.json({ error: "Brak aktywnej subskrypcji.", code: "no_subscription" }, { status: 403 });
+  if (sub.current_period_end && new Date(sub.current_period_end) < new Date())
+    return Response.json({ error: "Subskrypcja wygasła.", code: "subscription_expired" }, { status: 403 });
 
   const limit = PLANS[sub.plan as keyof typeof PLANS]?.generations ?? 0;
   if (limit !== Infinity) {
