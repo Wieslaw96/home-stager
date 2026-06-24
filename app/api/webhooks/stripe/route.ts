@@ -37,7 +37,8 @@ export async function POST(req: NextRequest) {
         const sub = await stripe.subscriptions.retrieve(session.subscription as string);
         const planKey = getPlanByPriceId(sub.items.data[0].price.id);
         if (planKey) {
-          await getSupabaseAdmin().from("subscriptions").upsert({
+          const admin = getSupabaseAdmin();
+          await admin.from("subscriptions").upsert({
             id: sub.id,
             user_id: session.metadata.user_id,
             plan: planKey,
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
             cancel_at_period_end: sub.cancel_at_period_end,
             updated_at: new Date().toISOString(),
           });
+          await admin.from("subscriptions").delete().eq("id", `trial_${session.metadata.user_id}`);
         }
       }
       break;

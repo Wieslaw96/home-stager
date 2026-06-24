@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type PlanKey = "starter" | "agent" | "agencja" | "admin";
+type PlanKey = "trial" | "starter" | "agent" | "agencja" | "admin";
 type Tab = "staging" | "history";
 type Mode =
   | "staging" | "inspirational" | "prime_walls" | "remove_objects"
@@ -26,8 +26,8 @@ interface HistoryEntry {
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const PLAN_LABELS: Record<PlanKey, string> = { starter: "Starter", agent: "Agent", agencja: "Agencja", admin: "Admin" };
-const PLAN_LIMITS: Record<PlanKey, number | null> = { starter: 20, agent: 80, agencja: 300, admin: null };
+const PLAN_LABELS: Record<PlanKey, string> = { trial: "Trial", starter: "Starter", agent: "Agent", agencja: "Agencja", admin: "Admin" };
+const PLAN_LIMITS: Record<PlanKey, number | null> = { trial: 1, starter: 20, agent: 80, agencja: 300, admin: null };
 
 const MODES: { id: Mode; icon: string; label: string; desc: string; needsImage: boolean }[] = [
   { id: "staging",         icon: "🛋️", label: "Staging",       desc: "Umebluj styl AI",          needsImage: true },
@@ -797,20 +797,30 @@ export default function Page() {
                 {(errorCode === "limit_reached" || limitReached) && (
                   <div className="p-5 rounded-2xl bg-gradient-to-br from-[#C9A96E]/15 to-[#C9A96E]/5 border border-[#C9A96E]/30 flex flex-col gap-3">
                     <div className="flex items-start gap-3">
-                      <span className="text-2xl">🔒</span>
+                      <span className="text-2xl">{userPlan === "trial" ? "✨" : "🔒"}</span>
                       <div>
-                        <p className="font-bold text-[#1A1410]/85 text-sm">Wykorzystałeś limit {planLimit} generacji w tym miesiącu</p>
+                        <p className="font-bold text-[#1A1410]/85 text-sm">
+                          {userPlan === "trial"
+                            ? "Twoja darmowa generacja została wykorzystana"
+                            : `Wykorzystałeś limit ${planLimit} generacji w tym miesiącu`}
+                        </p>
                         <p className="text-xs text-[#1A1410]/50 mt-0.5">
-                          {userPlan === "agencja"
-                            ? "Jesteś na najwyższym planie. Limit odnowi się na początku następnego miesiąca."
-                            : "Przejdź na wyższy plan i generuj więcej bez przerwy."}
+                          {userPlan === "trial"
+                            ? "Kup plan i generuj bez limitu — od 97 zł miesięcznie."
+                            : userPlan === "agencja"
+                              ? "Jesteś na najwyższym planie. Limit odnowi się na początku następnego miesiąca."
+                              : "Przejdź na wyższy plan i generuj więcej bez przerwy."}
                         </p>
                       </div>
                     </div>
                     {userPlan !== "agencja" && (
                       <Link href="/pricing"
                         className="w-full py-3 text-center rounded-xl bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a] font-bold text-sm hover:opacity-90 transition-all">
-                        {userPlan === "starter" ? "Przejdź na Agent — 80 generacji →" : "Przejdź na Agencja — 300 generacji →"}
+                        {userPlan === "trial"
+                          ? "Wybierz plan — od 97 zł/mies. →"
+                          : userPlan === "starter"
+                            ? "Przejdź na Agent — 80 generacji →"
+                            : "Przejdź na Agencja — 300 generacji →"}
                       </Link>
                     )}
                   </div>

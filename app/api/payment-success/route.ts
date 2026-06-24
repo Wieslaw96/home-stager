@@ -77,6 +77,8 @@ export async function GET(req: NextRequest) {
           new URL(`/pricing?error=db_error&msg=${encodeURIComponent(error.message)}`, req.url)
         );
       }
+
+      await admin.from("subscriptions").delete().eq("id", `trial_${user.id}`);
     } else {
       console.error("[payment-success] unknown priceId:", sub.items.data[0].price.id);
       return NextResponse.redirect(new URL("/pricing?error=unknown_plan", req.url));
