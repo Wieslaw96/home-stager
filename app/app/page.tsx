@@ -165,17 +165,40 @@ const SPECIALITY_DECORS: { id: string; label: string }[] = [
   { id: "SPECIALITY_DECOR_7", label: "Zima" },
 ];
 
-const YARD_TYPES = ["Front Yard", "Backyard", "Side Yard"];
-const GARDEN_STYLES = [
-  "Garden", "Custom", "Shade Garden", "Herb and Vegetable garden",
-  "California Style Garden", "Evergreen Garden", "Aquatic Garden",
-  "Picturesque Garden", "New England Style Garden", "Colonial Style Garden",
-  "Terraced Garden", "Bamboo Garden", "Patio Garden",
-  "Pollinators-Friendly Garden", "Drought Resistant Garden", "Container Garden",
-  "Tropical Garden", "Japanese Zen Garden", "Mediterranean Garden",
-  "Rock Garden", "Private Courtyard Garden", "Outdoor Staircase Garden",
-  "Mounds or Berms", "Therapeutic Garden", "Alpine Garden",
-  "Feng Shui Garden", "Vertical Garden", "Chinese Garden",
+const YARD_TYPES: { id: string; label: string }[] = [
+  { id: "Front Yard", label: "Ogród przedni" },
+  { id: "Backyard",   label: "Ogród tylny" },
+  { id: "Side Yard",  label: "Ogród boczny" },
+];
+const GARDEN_STYLES: { id: string; label: string }[] = [
+  { id: "Garden",                      label: "Ogród klasyczny" },
+  { id: "Custom",                      label: "Własny styl" },
+  { id: "Shade Garden",                label: "Ogród cienisty" },
+  { id: "Herb and Vegetable garden",   label: "Ogród ziołowy i warzywny" },
+  { id: "California Style Garden",     label: "Styl kalifornijski" },
+  { id: "Evergreen Garden",            label: "Ogród zimozielony" },
+  { id: "Aquatic Garden",              label: "Ogród wodny" },
+  { id: "Picturesque Garden",          label: "Ogród malowniczy" },
+  { id: "New England Style Garden",    label: "Styl Nowej Anglii" },
+  { id: "Colonial Style Garden",       label: "Ogród kolonialny" },
+  { id: "Terraced Garden",             label: "Ogród tarasowy" },
+  { id: "Bamboo Garden",               label: "Ogród bambusowy" },
+  { id: "Patio Garden",                label: "Ogród na patio" },
+  { id: "Pollinators-Friendly Garden", label: "Ogród przyjazny owadom" },
+  { id: "Drought Resistant Garden",    label: "Ogród odporny na suszę" },
+  { id: "Container Garden",            label: "Ogród w donicach" },
+  { id: "Tropical Garden",             label: "Ogród tropikalny" },
+  { id: "Japanese Zen Garden",         label: "Ogród japoński Zen" },
+  { id: "Mediterranean Garden",        label: "Ogród śródziemnomorski" },
+  { id: "Rock Garden",                 label: "Ogród skalny" },
+  { id: "Private Courtyard Garden",    label: "Ogród dziedzińcowy" },
+  { id: "Outdoor Staircase Garden",    label: "Ogród schodkowy" },
+  { id: "Mounds or Berms",             label: "Kopce i nasypy" },
+  { id: "Therapeutic Garden",          label: "Ogród terapeutyczny" },
+  { id: "Alpine Garden",               label: "Ogród alpejski" },
+  { id: "Feng Shui Garden",            label: "Ogród Feng Shui" },
+  { id: "Vertical Garden",             label: "Ogród wertykalny" },
+  { id: "Chinese Garden",              label: "Ogród chiński" },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -762,9 +785,9 @@ export default function Page() {
                 {mode === "landscaping" && (
                   <>
                     <ToggleGroup label="Typ ogrodu" value={yardType} onChange={setYardType}
-                      options={YARD_TYPES.map((y) => ({ id: y, label: y }))} />
+                      options={YARD_TYPES} />
                     <Select label="Styl ogrodu" value={gardenStyle} onChange={setGardenStyle}
-                      options={GARDEN_STYLES.map((g) => ({ id: g, label: g }))} />
+                      options={GARDEN_STYLES} />
                   </>
                 )}
 
