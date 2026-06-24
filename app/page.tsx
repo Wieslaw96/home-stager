@@ -226,14 +226,12 @@ export default async function LandingPage() {
         <section id="demo" className="px-6 pb-24">
           <div className="max-w-4xl mx-auto">
             <div className="relative rounded-2xl overflow-hidden border border-white/8 bg-[#111111] aspect-video">
-              <video
-                controls
-                playsInline
-                preload="metadata"
-                className="w-full h-full object-cover"
-              >
-                <source src="/demo.mp4" type="video/mp4" />
-              </video>
+              <iframe
+                src="https://www.youtube.com/embed/sHsXGz5YohY?rel=0&modestbranding=1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
             </div>
           </div>
         </section>
