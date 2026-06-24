@@ -3,9 +3,34 @@ import { Logo } from "@/components/Logo";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
-  title: "Stageria — Wirtualny Staging AI dla Profesjonalistów",
+  title: "Stageria — Wirtualny Staging AI | Puste pokoje w gotowe zdjęcia w 30 sekund",
   description:
-    "Zamień puste pokoje w zachwycające wnętrza w 30 sekund. Profesjonalny wirtualny staging AI dla agentów nieruchomości i deweloperów.",
+    "Wirtualny staging AI dla agentów nieruchomości i deweloperów. Zamień puste pokoje w profesjonalne wizualizacje w 30 sekund. Od 97 zł / mies. Bez ekipy, bez logistyki.",
+  keywords: [
+    "wirtualny staging", "virtual staging", "staging nieruchomości", "staging mieszkania",
+    "home staging AI", "AI staging", "wizualizacja wnętrz", "puste mieszkanie zdjęcia",
+    "staging online", "staging Polska", "umeblowanie AI", "zdjęcia nieruchomości AI",
+  ],
+  authors: [{ name: "Stageria" }],
+  creator: "Stageria",
+  metadataBase: new URL("https://stageria.pl"),
+  alternates: { canonical: "https://stageria.pl" },
+  openGraph: {
+    type: "website",
+    url: "https://stageria.pl",
+    title: "Stageria — Wirtualny Staging AI w 30 sekund",
+    description: "Zamień puste pokoje w profesjonalne wizualizacje. AI virtual staging dla agentów nieruchomości. Od 97 zł / mies.",
+    siteName: "Stageria",
+    images: [{ url: "https://stageria.pl/after-1.jpg", width: 1200, height: 630, alt: "Stageria — wirtualny staging AI" }],
+    locale: "pl_PL",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Stageria — Wirtualny Staging AI w 30 sekund",
+    description: "Zamień puste pokoje w profesjonalne wizualizacje. AI virtual staging dla agentów nieruchomości.",
+    images: ["https://stageria.pl/after-1.jpg"],
+  },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 };
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -147,8 +172,34 @@ export default async function LandingPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stageria",
+    "url": "https://stageria.pl",
+    "description": "Wirtualny staging AI dla agentów nieruchomości i deweloperów. Zamień puste pokoje w profesjonalne wizualizacje w 30 sekund.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "PLN",
+      "lowPrice": "97",
+      "highPrice": "597",
+      "offerCount": "3",
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "47",
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap');
         .font-display { font-family: 'Playfair Display', Georgia, serif; }
