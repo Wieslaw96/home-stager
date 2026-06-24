@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { createClient } from "@/lib/supabase/server";
+import { PlanButton } from "@/components/PlanButton";
 
 export const metadata = {
   title: "Stageria — Wirtualny Staging AI | Puste pokoje w gotowe zdjęcia w 30 sekund",
@@ -573,16 +574,9 @@ export default async function LandingPage() {
                     ))}
                   </ul>
 
-                  <Link
-                    href={`/api/checkout/${plan.key}`}
-                    className={`block w-full rounded-xl py-3 text-sm font-semibold text-center transition-all duration-200 hover:scale-[1.02] ${
-                      plan.highlight
-                        ? "bg-gradient-to-r from-[#C9A96E] to-[#E8D5A3] text-[#0a0a0a]"
-                        : "bg-white/8 text-white hover:bg-white/12 border border-white/10"
-                    }`}
-                  >
+                  <PlanButton href={`/api/checkout/${plan.key}`} highlight={plan.highlight}>
                     {plan.cta}
-                  </Link>
+                  </PlanButton>
                 </div>
               ))}
             </div>

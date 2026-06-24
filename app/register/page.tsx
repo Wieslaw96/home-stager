@@ -37,6 +37,8 @@ function RegisterForm() {
       setError(error.message);
       setLoading(false);
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).fbq?.("track", "Lead");
       setDone(true);
     }
   }

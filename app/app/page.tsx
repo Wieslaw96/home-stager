@@ -508,6 +508,13 @@ export default function Page() {
   const [usageCount, setUsageCount] = useState(0);
 
   useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("success") === "1") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).fbq?.("track", "Purchase", { currency: "PLN" });
+    }
+  }, []);
+
+  useEffect(() => {
     setHistory(loadHistory());
     const supabase = createClient();
     supabase.auth.getUser().then(async ({ data: { user } }) => {
