@@ -757,14 +757,6 @@ export default function Page() {
                     options={[{ id: "day", label: "Dzień" }, { id: "dusk", label: "Zmierzch" }, { id: "night", label: "Noc" }]} />
                 )}
 
-                {/* upscale */}
-                {mode === "upscale" && (
-                  <ToggleGroup label="Skala powiększenia" value={String(scaleFactor)} onChange={(v) => setScaleFactor(Number(v))}
-                    options={[
-                      { id: "2", label: "2×" }, { id: "3", label: "3× (+$0.20)" },
-                      { id: "4", label: "4× (+$0.20)" }, { id: "6", label: "6× (+$0.40)" }, { id: "8", label: "8× (+$0.60)" },
-                    ]} />
-                )}
 
                 {/* landscaping */}
                 {mode === "landscaping" && (
