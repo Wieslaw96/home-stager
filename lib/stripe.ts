@@ -4,7 +4,7 @@ export function getStripe(): Stripe {
   return new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-05-27.dahlia" });
 }
 
-export type PlanKey = "starter" | "agent" | "agencja";
+export type PlanKey = "starter" | "agent" | "agencja" | "admin";
 
 export const PLANS: Record<PlanKey, { name: string; priceId: string; generations: number; amount: number }> = {
   starter: {
@@ -24,6 +24,12 @@ export const PLANS: Record<PlanKey, { name: string; priceId: string; generations
     priceId: process.env.STRIPE_PRICE_AGENCJA ?? "",
     generations: 300,
     amount: 59700,
+  },
+  admin: {
+    name: "Admin",
+    priceId: "",
+    generations: Infinity,
+    amount: 0,
   },
 };
 

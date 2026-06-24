@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type PlanKey = "starter" | "agent" | "agencja";
+type PlanKey = "starter" | "agent" | "agencja" | "admin";
 type Tab = "staging" | "history";
 type Mode =
   | "staging" | "inspirational" | "prime_walls" | "remove_objects"
@@ -26,8 +26,8 @@ interface HistoryEntry {
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-const PLAN_LABELS: Record<PlanKey, string> = { starter: "Starter", agent: "Agent", agencja: "Agencja" };
-const PLAN_LIMITS: Record<PlanKey, number | null> = { starter: 20, agent: 80, agencja: 300 };
+const PLAN_LABELS: Record<PlanKey, string> = { starter: "Starter", agent: "Agent", agencja: "Agencja", admin: "Admin" };
+const PLAN_LIMITS: Record<PlanKey, number | null> = { starter: 20, agent: 80, agencja: 300, admin: null };
 
 const MODES: { id: Mode; icon: string; label: string; desc: string; needsImage: boolean }[] = [
   { id: "staging",         icon: "🛋️", label: "Staging",       desc: "Umebluj styl AI",          needsImage: true },

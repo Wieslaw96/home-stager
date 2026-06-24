@@ -174,34 +174,38 @@ Sprawić, żeby każde ogłoszenie nieruchomości wyglądało profesjonalnie —
 - [x] Ochrona `/app` — niezalogowany → redirect do `/login` ✅
 
 **Domena i branding:**
-- [ ] SSL działa na stageria.pl (Vercel robi automatycznie po podpięciu DNS)
-- [ ] stageria.pl → otwiera landing page (nie room-stager-teal.vercel.app)
-- [ ] Sprawdzić czy logo Stageria wyświetla się poprawnie na mobile
+- [x] SSL działa na stageria.pl ✅
+- [x] stageria.pl → otwiera landing page ✅
+- [x] Logo Stageria wyświetla się poprawnie na mobile ✅
 
 **Media społecznościowe — założyć konta:**
 - [ ] **Instagram** — @stageria.pl lub @stageria_ai (sprawdzić dostępność)
 - [ ] **TikTok** — @stageria
 - [ ] **Facebook** — fanpage "Stageria" (potrzebny do Meta Ads)
-- [ ] **LinkedIn** — profil firmowy "Stageria"
-- [ ] We wszystkich: dodać link stageria.pl + bio "AI Virtual Staging dla agentów nieruchomości"
+- [x] **LinkedIn** — profil osobisty Wiesława (marka osobista, nie firmowy) — bio + nagłówek gotowe w SOCIAL_MEDIA.md
+- [ ] We wszystkich: dodać link stageria.pl + bio
 
 **Film na landing page:**
-- [ ] Nagrać screen recording: upload zdjęcia → wybór stylu → generowanie → wynik (30–60 sekund)
-- [ ] Dodać muzykę royalty-free (np. z Pixabay)
-- [ ] Wgrać do `public/` w projekcie i podmienić placeholder video na LP
+- [ ] Nagrać screen recording — scenariusz gotowy w SOCIAL_MEDIA.md
+- [ ] Dodać muzykę royalty-free (Pixabay → "cinematic ambient")
+- [ ] Zmontować w CapCut, dodać napisy
+- [ ] Wgrać do `public/` i podmienić placeholder video na LP
 
 #### ✅ QA ZAKOŃCZONE 2026-06-18 — wszystkie ścieżki przetestowane i działają
 
 #### 🟢 NICE TO HAVE — jeśli zostanie czas
 
-- [ ] Google Analytics 4 — dodać tag do `layout.tsx` (ważne dla śledzenia konwersji)
-- [ ] Meta Pixel — dodać do `layout.tsx` (kluczowe dla Meta Ads)
-- [ ] Supabase email templates — zmienić branding z domyślnych na "Stageria"
+- [x] Google Analytics 4 — tag G-E7VDVKKHND w `layout.tsx` ✅
+- [ ] Meta Pixel — czeka na FB fanpage
+- [x] Supabase email templates — wklejone w Supabase, maile idą z noreply@stageria.pl ✅
+- [x] Resend SMTP — domena stageria.pl zweryfikowana, skonfigurowane w Supabase ✅
+- [x] Email kontakt@stageria.pl — Gmail "Send mail as" skonfigurowane ✅
 - [x] Regulamin — stageria.pl/regulamin ✅
 - [x] Polityka Prywatności — stageria.pl/polityka-prywatnosci ✅
-- [ ] Favicon — sprawdzić czy jest ustawiony w `layout.tsx`
+- [x] Favicon — `app/icon.svg` zgodny z Logo ✅
+- [x] kontakt@stageria.pl w stopce LP i dokumentach prawnych ✅
 - [ ] Film na landing page
-- [ ] Konta social media (IG, TikTok, FB, LinkedIn)
+- [ ] Konta social media (IG, TikTok, FB)
 
 ---
 
@@ -221,3 +225,10 @@ Sprawić, żeby każde ogłoszenie nieruchomości wyglądało profesjonalnie —
 | 2026-06-18 | Stworzenie biznesplanu |
 | 2026-06-18 | stageria.pl live — pełne QA zaliczone (rejestracja, login, Google OAuth, Stripe LIVE, generowanie, billing portal, ochrona tras) |
 | 2026-06-18 | Regulamin i Polityka Prywatności (RODO) dodane i publicznie dostępne |
+| 2026-06-19 | GA4 (G-E7VDVKKHND) dodany, favicon zaktualizowany, flow płatności naprawiony (payment-first) |
+| 2026-06-19 | Resend skonfigurowany (DNS dodane, oczekuje weryfikacji), szablony email gotowe lokalnie |
+| 2026-06-19 | Liczne poprawki landing page: ceny, CTA, scroll do planów, checkout flow |
+| 2026-06-22 | Resend DNS zweryfikowany (bug SEOhost — naprawiony przez support), Supabase SMTP skonfigurowane |
+| 2026-06-22 | Szablony email PL wklejone w Supabase, Gmail "Send mail as" kontakt@stageria.pl skonfigurowane |
+| 2026-06-22 | kontakt@stageria.pl dodany do stopki LP, regulaminu i polityki prywatności |
+| 2026-06-22 | Strategia social media — SOCIAL_MEDIA.md z bio, postami i scenariuszem filmu |
