@@ -67,7 +67,12 @@ function LoginForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#1A1410]/70 mb-1.5">Hasło</label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-sm font-medium text-[#1A1410]/70">Hasło</label>
+                <Link href="/reset-password" className="text-xs text-[#C9A96E] hover:text-[#8B5E30] transition-colors">
+                  Zapomniałem hasła
+                </Link>
+              </div>
               <input
                 type="password"
                 value={password}
