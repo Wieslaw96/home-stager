@@ -18,6 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pl">
       <head>
         <meta name="facebook-domain-verification" content="7f6rbj6nmwsbpz7gw7nb1ojnir44f5" />
+        <meta name="google-site-verification" content="NXk3ETviA_m-WKvZzHQJlcWwlXaWsJ6zpLpdabjgkC4" />
         <link
           rel="preconnect"
           href="https://fonts.googleapis.com"
